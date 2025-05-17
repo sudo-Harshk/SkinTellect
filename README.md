@@ -91,4 +91,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 - Roboflow for AI model hosting
 - Twilio for SMS services
-- Flask community for the web framework 
+- Flask community for the web framework
