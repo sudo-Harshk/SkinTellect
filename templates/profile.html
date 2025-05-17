@@ -1,0 +1,118 @@
+{% extends 'layout.html' %}
+
+{% block title %}Profile - SkinTellect{% endblock %}
+
+{% block content %}
+<div class="h-[100vh] w-full flex items-center relative justify-center">
+  <!-- Background Image -->
+  <img src="../static/assets/bg.webp" alt="" class="absolute top-0 left-0 w-full h-full object-cover brightness-[90%] z-0">
+
+  <!-- User Profile Content -->
+  <div class="w-[50vw] bg-white bg-opacity-80 rounded-xl p-8 backdrop-blur-md z-10">
+    <!-- Default User Profile Image -->
+    <div class="flex items-center justify-center mb-6 gap-2">
+      <img src="../static/assets/user.png" alt="Default Profile Image" class="w-12 h-12 rounded-full">
+      <p class="text-3xl font-semibold">{{ name }}</p>
+    </div>
+
+    <!-- Error Message -->
+    {% if error %}
+      <div class="text-red-600 font-semibold text-center mb-6">{{ error }}</div>
+    {% endif %}
+
+    <!-- User Information -->
+    <div class="text-gray-800">
+      {% if edit %}
+      <form method="POST" action="/profile">
+        <div class="flex flex-col gap-2">
+          <div class="px-4 flex justify-between items-center p-2 rounded-lg" style="background-color: #FDEEF4;">
+            <label class="font-semibold">Name:</label>
+            <input type="text" name="name" value="{{ name }}" class="border rounded p-1" required>
+          </div>
+          <div class="px-4 flex justify-between items-center p-2 rounded-lg" style="background-color: #FAD2E1;">
+            <label class="font-semibold">Age:</label>
+            <input type="number" name="age" value="{{ age }}" class="border rounded p-1" required>
+          </div>
+          <div class="px-4 flex flex-col p-2 rounded-lg" style="background-color: #FDEEF4;">
+            <label class="font-semibold mb-2">Skin Concerns:</label>
+            <div class="flex flex-wrap gap-3">
+              {% set concerns_list = concerns.split(',') if concerns else [] %}
+              {% for option in ['Acne', 'Dry skin', 'Oily skin', 'Blackheads or whiteheads', 'Papules', 'Skin allergies or irritations'] %}
+              <label class="custom-checkbox">
+                <input type="checkbox" name="concerns" value="{{ option }}" {% if option in concerns_list %}checked{% endif %}>
+                <span class="checkbox-toggle"></span>
+                <span class="checkbox-text">{{ option }}</span>
+              </label>
+              {% endfor %}
+            </div>
+          </div>
+          <div class="px-4 flex justify-between items-center p-2 rounded-lg" style="background-color: #FAD2E1;">
+            <label class="font-semibold">Skin Type:</label>
+            <select name="skin_type" class="border rounded p-1" required>
+              <option value="" disabled>Choose an option</option>
+              {% for option in ['Part Oily And Part Normal (Combination Skin)', 'Neither Very Oily Nor Very Dry', 'Oily Forehead And Nose Bridge (T Zone)', 'None Of The Above'] %}
+              <option value="{{ option }}" {% if skin_type == option %}selected{% endif %}>{{ option }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="px-4 flex justify-between items-center p-2 rounded-lg" style="background-color: #FDEEF4;">
+            <label class="font-semibold">Acne Frequency:</label>
+            <select name="acne_frequency" class="border rounded p-1" required>
+              <option value="" disabled>Choose an option</option>
+              {% for option in ['Never', 'Once in a month', 'Once in 3 months', 'Always Present'] %}
+              <option value="{{ option }}" {% if acne_frequency == option %}selected{% endif %}>{{ option }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="px-4 flex justify-between items-center p-2 rounded-lg" style="background-color: #FAD2E1;">
+            <label class="font-semibold">Primary Concern:</label>
+            <select name="first_concern" class="border rounded p-1" required>
+              <option value="" disabled>Choose an option</option>
+              {% for option in ['Acne', 'Dry skin', 'Oily skin', 'Blackheads or whiteheads', 'Papules'] %}
+              <option value="{{ option }}" {% if first_concern == option %}selected{% endif %}>{{ option }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        <div class="text-center mt-6 flex gap-4 justify-center">
+          <button type="submit" class="btn btn-primary">Save</button>
+          <a href="/profile" class="btn btn-primary">Cancel</a>
+        </div>
+      </form>
+      {% else %}
+      <div class="flex flex-col gap-2">
+        <div class="px-4 flex justify-between items-center p-2 rounded-lg" style="background-color: #FDEEF4;">
+          <label class="font-semibold">Name:</label>
+          <span>{{ name }}</span>
+        </div>
+        <div class="px-4 flex justify-between items-center p-2 rounded-lg" style="background-color: #FAD2E1;">
+          <label class="font-semibold">Age:</label>
+          <span>{{ age }}</span>
+        </div>
+        {% if not error %}
+          <div class="px-4 flex justify-between items-center p-2 rounded-lg" style="background-color: #FDEEF4;">
+            <label class="font-semibold">Skin Concerns:</label>
+            <span>{{ concerns }}</span>
+          </div>
+          <div class="px-4 flex justify-between items-center p-2 rounded-lg" style="background-color: #FAD2E1;">
+            <label class="font-semibold">Skin Type:</label>
+            <span>{{ skin_type }}</span>
+          </div>
+          <div class="px-4 flex justify-between items-center p-2 rounded-lg" style="background-color: #FDEEF4;">
+            <label class="font-semibold">Acne Frequency:</label>
+            <span>{{ acne_frequency }}</span>
+          </div>
+          <div class="px-4 flex justify-between items-center p-2 rounded-lg" style="background-color: #FAD2E1;">
+            <label class="font-semibold">Primary Concern:</label>
+            <span>{{ first_concern }}</span>
+          </div>
+        {% endif %}
+      </div>
+      <div class="text-center mt-6">
+        <a href="/profile?edit=1" class="btn btn-primary">Edit Profile</a>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

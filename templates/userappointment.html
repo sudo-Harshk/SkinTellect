@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+
+{% block title %}My Appointments - SkinTellect{% endblock %}
+
+{% block content %}
+<div class="min-h-screen w-full relative flex flex-col items-center justify-center bg-gradient-to-br from-pink-100 via-white to-indigo-100">
+  <img src="../static/assets/bg.webp" alt="" class="absolute inset-0 w-full h-full object-cover brightness-95 z-0" />
+
+  <div class="relative z-10 w-full max-w-4xl mx-auto py-12 px-4">
+    <h1 class="text-4xl md:text-5xl font-bold text-gray-800 mb-10 text-center drop-shadow-md">My Appointments</h1>
+
+    {% if not all_appointments %}
+      <div class="glass-card text-center text-xl md:text-2xl text-gray-600 p-8">No appointments found. 
+        <a href="/bookappointment" class="text-pink-600 hover:underline font-semibold">Book one now!</a>
+      </div>
+    {% else %}
+      <div class="flex flex-col gap-8">
+        {% for appointment in all_appointments %}
+        <div class="glass-card p-6 md:p-8 rounded-2xl shadow-xl">
+          <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-2">
+            <div class="text-2xl font-bold text-pink-700">{{ appointment.name }}</div>
+            <span class="inline-block text-sm font-semibold px-4 py-1 rounded-full 
+              {% if appointment.status %}bg-green-100 text-green-700 
+              {% elif appointment.rejected %}bg-red-100 text-red-700 
+              {% else %}bg-yellow-100 text-yellow-700 
+              {% endif %}">
+              {% if appointment.status %}Accepted ✅{% elif appointment.rejected %}Rejected ❌{% else %}Pending{% endif %}
+            </span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-3 sm:gap-x-10 text-gray-700 text-base md:text-lg">
+            <div><span class="font-semibold text-pink-600">Email:</span> {{ appointment.email }}</div>
+            <div><span class="font-semibold text-pink-600">Date:</span> {{ appointment.date }}</div>
+            <div><span class="font-semibold text-pink-600">Phone:</span> {{ appointment.phone }}</div>
+            <div><span class="font-semibold text-pink-600">Address:</span> {{ appointment.address }}</div>
+            <div><span class="font-semibold text-pink-600">Concerns:</span> {{ appointment.concerns }}</div>
+            <div><span class="font-semibold text-pink-600">Skin Type:</span> {{ appointment.skin_type }}</div>
+            <div><span class="font-semibold text-pink-600">Acne Frequency:</span> {{ appointment.acne_frequency }}</div>
+            <div><span class="font-semibold text-pink-600">Primary Concern:</span> {{ appointment.first_concern }}</div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<style>
+  .glass-card {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px) saturate(120%);
+    border: 1.5px solid rgba(236, 72, 153, 0.12);
+    transition: all 0.2s ease-in-out;
+  }
+
+  .glass-card:hover {
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 8px 24px rgba(236, 72, 153, 0.15);
+  }
+</style>
+
+{% endblock %}

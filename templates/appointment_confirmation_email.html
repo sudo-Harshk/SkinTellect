@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointment Confirmation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            background-color: #fff5f7;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .header {
+            background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px 10px 0 0;
+        }
+        .content {
+            padding: 20px;
+        }
+        .appointment-details {
+            background-color: #fff5f7;
+            border: 2px dashed #ff69b4;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+            font-size: 12px;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .status {
+            font-weight: bold;
+            color: #ff1493;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Appointment {{ status }}</h1>
+        </div>
+        <div class="content">
+            <p>Dear {{ name }},</p>
+            
+            <p>Your appointment request has been {{ status.lower() }}.</p>
+            
+            <div class="appointment-details">
+                <h3>Appointment Details:</h3>
+                <p><strong>Date:</strong> {{ date }}</p>
+                <p><strong>Status:</strong> <span class="status">{{ status }}</span></p>
+                {% if reason %}
+                <p><strong>Reason:</strong> {{ reason }}</p>
+                {% endif %}
+            </div>
+
+            {% if status == 'ACCEPTED' %}
+            <p>We look forward to seeing you at your appointment. Please arrive 10 minutes before your scheduled time.</p>
+            {% else %}
+            <p>We apologize for any inconvenience. Please feel free to book another appointment at a more convenient time.</p>
+            {% endif %}
+
+            <p>If you have any questions, please don't hesitate to contact us.</p>
+            
+            <p>Best regards,<br>SkinTellect Team</p>
+        </div>
+        <div class="footer">
+            <p>This is an automated message, please do not reply to this email.</p>
+            <p>&copy; 2024 SkinTellect. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html> 

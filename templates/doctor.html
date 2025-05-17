@@ -1,0 +1,373 @@
+{% extends 'layout.html' %}
+
+{% block title %}Doctor Dashboard - SkinTellect{% endblock %}
+
+{% block content %}
+<div class="min-h-screen w-full relative bg-gray-50">
+  <!-- Background Image -->
+  <img src="../static/assets/bg.webp" alt="" class="fixed top-0 left-0 w-full h-full object-cover brightness-[90%] z-0">
+
+  <!-- Doctor Navbar -->
+  <nav class="fixed top-0 left-0 w-full z-50 bg-white shadow-md flex justify-between items-center px-6 h-[10vh]">
+    <div class="text-xl font-extrabold text-pink-600 flex items-center gap-2 tracking-wide">
+       Skintellect
+    </div>
+    <ul class="flex items-center gap-8">
+      <li><a href="/doctor" class="hover:text-red-600 font-medium">Dashboard</a></li>
+      <li><a href="/logout" class="hover:text-red-600 font-medium">Logout</a></li>
+    </ul>
+  </nav>
+  
+
+  <!-- Main Content -->
+  <div class="relative z-10 container mx-auto px-4 py-8 mt-[10vh]">
+    <!-- Header with Title and Actions -->
+    <div class="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-800 flex items-center">
+        <img src="../static/assets/3d-report.png" class="w-10 h-10 mr-4">
+        Patient Appointment Requests
+      </h1>
+      <button onclick="deleteAllAppointments()" 
+              class="btn btn-primary flex items-center" style="background: #ef4444; border: none;">
+        <i class="fa-solid fa-trash-can mr-2"></i> Clear All
+      </button>
+    </div>
+
+    <!-- Appointments Container -->
+    <div class="doctor-table-container">
+      <table class="doctor-table">
+        <thead>
+          <tr>
+            <th>Patient</th>
+            <th>Contact</th>
+            <th>Date</th>
+            <th>Concerns</th>
+            <th>Status</th>
+            <th class="text-right">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if not appointments %}
+            <tr>
+              <td colspan="6" class="text-center py-8 text-gray-500">
+                <i class="fa-solid fa-calendar-xmark text-3xl text-gray-300 mb-2"></i><br>
+                No appointment requests found<br>
+                <span class="text-gray-400">New appointments will appear here</span>
+              </td>
+            </tr>
+          {% else %}
+            {% for appointment in appointments %}
+            <tr>
+              <td>
+                <div class="font-bold">{{ appointment.name }}</div>
+                <div class="text-xs text-gray-500">{{ appointment.age }} years</div>
+              </td>
+              <td>
+                <div>{{ appointment.phone }}</div>
+                <div class="text-xs text-gray-500">{{ appointment.email }}</div>
+              </td>
+              <td>
+                <div>{{ appointment.date }}</div>
+                <div class="text-xs text-gray-500">{{ appointment.skin_type }}</div>
+              </td>
+              <td>
+                <div class="tags">
+                  {% for concern in appointment.concerns.split(',') %}
+                    <span class="tag">{{ concern }}</span>
+                  {% endfor %}
+                </div>
+                <div class="text-xs text-gray-500 mt-1">{{ appointment.first_concern }}</div>
+              </td>
+              <td>
+                <span class="status-badge {% if appointment.status %}accepted{% elif appointment.rejected %}rejected{% else %}pending{% endif %}">
+                  {% if appointment.status %}Accepted{% elif appointment.rejected %}Rejected{% else %}Pending{% endif %}
+                </span>
+              </td>
+              <td class="text-right flex items-center justify-end gap-2">
+                {% if not appointment.status and not appointment.rejected %}
+                  <button class="plain-emoji-btn" onclick="acceptAppointment({{ appointment.id }})" title="Accept Appointment">✅</button>
+                  <button class="plain-emoji-btn btn-danger" onclick="rejectAppointment({{ appointment.id }})" title="Reject Appointment">❌</button>
+                {% elif appointment.status %}
+                  <div class="flex items-center justify-end w-full">
+                    <span class="text-green-600 text-2xl" title="Accepted">✅</span>
+                  </div>
+                {% elif appointment.rejected %}
+                  <div class="flex items-center justify-end w-full">
+                    <span class="text-red-600 text-2xl" title="Rejected">❌</span>
+                  </div>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<script>
+// Enhanced Accept Appointment Function
+function acceptAppointment(appointmentId) {
+  showLoader();
+  fetch('/update_status', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: `appointment_id=${appointmentId}`
+  })
+  .then(response => {
+    if (!response.ok) throw new Error('Network response was not ok');
+    return response.json();
+  })
+  .then(data => {
+    hideLoader();
+    if (data.success) {
+      showToast('Appointment accepted successfully', 'success');
+      setTimeout(() => window.location.reload(), 1000);
+    } else {
+      showToast(data.error || 'Failed to accept appointment', 'error');
+    }
+  })
+  .catch(error => {
+    hideLoader();
+    showToast('An error occurred', 'error');
+    console.error('Error:', error);
+  });
+}
+
+// Enhanced Reject Appointment Function
+function rejectAppointment(appointmentId) {
+  if (confirm('Are you sure you want to reject this appointment?')) {
+    showLoader();
+    fetch('/reject_appointment', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: `appointment_id=${appointmentId}`
+    })
+    .then(response => {
+      if (!response.ok) throw new Error('Network response was not ok');
+      return response.json();
+    })
+    .then(data => {
+      hideLoader();
+      if (data.success) {
+        showToast('Appointment rejected successfully', 'success');
+        setTimeout(() => window.location.reload(), 1000);
+      } else {
+        showToast(data.error || 'Failed to reject appointment', 'error');
+      }
+    })
+    .catch(error => {
+      hideLoader();
+      showToast('An error occurred', 'error');
+      console.error('Error:', error);
+    });
+  }
+}
+
+// Delete All Appointments
+function deleteAllAppointments() {
+  if (confirm('This will permanently delete ALL appointments. Continue?')) {
+    showLoader();
+    fetch('/delete_all_appointments', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+    })
+    .then(response => {
+      if (!response.ok) throw new Error('Network response was not ok');
+      return response.json();
+    })
+    .then(data => {
+      hideLoader();
+      if (data.success) {
+        showToast('All appointments deleted', 'success');
+        setTimeout(() => window.location.reload(), 1000);
+      } else {
+        showToast(data.error || 'Failed to delete appointments', 'error');
+      }
+    })
+    .catch(error => {
+      hideLoader();
+      showToast('An error occurred', 'error');
+      console.error('Error:', error);
+    });
+  }
+}
+
+// View Details (you can implement this as a modal)
+function viewDetails(appointmentId) {
+  // Implement your details view logic here
+  console.log('View details for appointment:', appointmentId);
+  // This could open a modal with full details
+}
+
+// Helper Functions
+function showLoader() {
+  // Implement your loading indicator
+}
+
+function hideLoader() {
+  // Implement hiding loading indicator
+}
+
+function showToast(message, type) {
+  // Implement your toast notification system
+  alert(message); // Temporary - replace with proper toast
+}
+</script>
+
+<style>
+  .appointment-card {
+    transition: box-shadow 0.2s, background 0.2s;
+    border-radius: 1.25rem;
+    font-family: 'Outfit', sans-serif;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(236, 72, 153, 0.04);
+    margin-bottom: 0.5rem;
+  }
+  .appointment-card:hover {
+    background: #f9fafb;
+    box-shadow: 0 8px 24px rgba(236, 72, 153, 0.10);
+  }
+  .bg-indigo-50 {
+    background: #f3f4f6 !important;
+  }
+  .btn.btn-primary[style] {
+    background: #ef4444 !important;
+    color: #fff !important;
+    border: none !important;
+  }
+  
+  @media (max-width: 768px) {
+    .appointment-card {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      padding: 1.5rem;
+    }
+    
+    .appointment-card > div {
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 0.5rem;
+    }
+    
+    .appointment-card > div:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+  }
+
+  .doctor-table-container {
+    background: #fff;
+    border-radius: 1.5rem;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    padding: 2rem;
+    margin-top: 2rem;
+  }
+
+  .doctor-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 0.5rem;
+    font-family: 'Outfit', sans-serif;
+  }
+
+  .doctor-table th, .doctor-table td {
+    padding: 1rem 1.25rem;
+    text-align: left;
+    vertical-align: middle;
+  }
+
+  .doctor-table thead th {
+    background: #f3f4f6;
+    font-weight: 700;
+    font-size: 1rem;
+    border-bottom: 2px solid #e5e7eb;
+  }
+
+  .doctor-table tbody tr {
+    background: #fff;
+    transition: box-shadow 0.2s, background 0.2s;
+  }
+
+  .doctor-table tbody tr:hover {
+    background: #f9fafb;
+    box-shadow: 0 2px 12px rgba(236, 72, 153, 0.08);
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    background: #e0e7ff;
+    color: #3730a3;
+    font-size: 0.85rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    font-weight: 500;
+  }
+
+  .status-badge {
+    display: inline-block;
+    padding: 0.4em 1.2em;
+    border-radius: 999px;
+    font-size: 0.9em;
+    font-weight: 600;
+  }
+  .status-badge.accepted { background: #d1fae5; color: #065f46; }
+  .status-badge.rejected { background: #fee2e2; color: #991b1b; }
+  .status-badge.pending  { background: #fef9c3; color: #92400e; }
+
+  .btn {
+    border: none;
+    border-radius: 0.75rem;
+    padding: 0.5em 1.2em;
+    font-weight: 600;
+    font-family: 'Outfit', sans-serif;
+    cursor: pointer;
+    margin-left: 0.5em;
+    transition: background 0.2s;
+  }
+  .btn-success { background: #22c55e; color: #fff; }
+  .btn-danger  { background: #ef4444; color: #fff; }
+  .btn-success:hover { background: #16a34a; }
+  .btn-danger:hover  { background: #b91c1c; }
+
+  .plain-emoji-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    padding: 0 0.3em;
+    cursor: pointer;
+    transition: transform 0.18s cubic-bezier(.4,2,.6,1), opacity 0.18s cubic-bezier(.4,2,.6,1), color 0.18s;
+    box-shadow: none;
+    border-radius: 0;
+    opacity: 0.85;
+  }
+  .plain-emoji-btn:hover {
+    transform: scale(1.22) translateY(-2px);
+    opacity: 1;
+    color: #22c55e; /* green for accept */
+  }
+  .plain-emoji-btn:focus {
+    outline: 2px solid #db2777;
+    outline-offset: 2px;
+  }
+  .plain-emoji-btn.btn-danger:hover {
+    color: #ef4444; /* red for reject */
+  }
+
+/* Hide the default navbar from layout.html only on the doctor page */
+nav:not(.h-\[10vh\]) {
+  display: none !important;
+}
+</style>
+{% endblock %}
