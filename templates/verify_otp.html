@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+
+{% block title %}Verify OTP - SkinTellect{% endblock %}
+
+{% block content %}
+<div class="register-page">
+  <form action="/verify_otp" class="register-container" method="post">
+    <h2>OTP Verification</h2>
+    <p>Please enter the 6-digit OTP sent to your registered email address.</p>
+
+    {% if error %}
+      <p class="text-red-600 text-sm mb-4">{{ error }}</p>
+    {% endif %}
+
+    <div class="form-component">
+      <input type="text" name="otp" placeholder="Enter OTP" required maxlength="6" pattern="\d{6}">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Verify OTP</button>
+  </form>
+
+  <div class="right-content">
+    <h3>Secure Access</h3>
+    <h1>Skintellect!</h1>
+  </div>
+</div>
+{% endblock %}

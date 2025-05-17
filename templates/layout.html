@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Skintellect{% endblock %}</title>
+
+  <!-- Simplified CSS imports -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+  <style>
+    :root {
+      --primary: #ec4899; /* rose-500 */
+      --primary-hover: #db2777; /* rose-600 */
+      --text-primary: #111827; /* gray-900 */
+      --text-secondary: #6b7280; /* gray-500 */
+      --bg-light: #f9fafb; /* gray-50 */
+      --success: #10b981; /* emerald-500 */
+      --error: #ef4444; /* red-500 */
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background-color: var(--bg-light);
+      color: var(--text-primary);
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+
+    /* Navbar */
+    nav {
+      height: 70px;
+      background: white;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .nav-logo {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--primary);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--text-primary);
+      font-weight: 500;
+      transition: color 0.2s ease;
+      text-decoration: none;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    /* Toast */
+    #toast-container {
+      position: fixed;
+      top: 90px;
+      right: 20px;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      max-width: 100%;
+      width: 350px;
+    }
+
+    .toast {
+      display: flex;
+      align-items: center;
+      background: white;
+      border-radius: 0.5rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      padding: 0.75rem 1rem;
+      animation: fadeIn 0.3s ease-out;
+      border-left: 4px solid;
+    }
+
+    .toast.success {
+      border-left-color: var(--success);
+    }
+
+    .toast.error {
+      border-left-color: var(--error);
+    }
+
+    .toast-icon {
+      margin-right: 0.75rem;
+      font-size: 1.25rem;
+    }
+
+    .toast.success .toast-icon {
+      color: var(--success);
+    }
+
+    .toast.error .toast-icon {
+      color: var(--error);
+    }
+
+    .toast-message {
+      flex: 1;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .toast-close {
+      margin-left: 0.75rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+
+    .toast-close:hover {
+      color: var(--text-primary);
+    }
+
+    /* Content */
+    .content {
+      min-height: calc(100vh - 70px);
+      padding: 2rem;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav {
+        padding: 0 1rem;
+      }
+      
+      .nav-links {
+        gap: 1rem;
+      }
+      
+      #toast-container {
+        width: 90%;
+        right: 5%;
+        top: 80px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav-links {
+        display: none; /* Consider a mobile menu for small screens */
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav>
+    <div class="nav-logo">Skintellect</div>
+    <ul class="nav-links">
+      {% if session.username %}
+        {% if session.username == 'doctor' %}
+          <li><a href="{{ url_for('doctor') }}">Dashboard</a></li>
+          <li><a href="{{ url_for('allappoint') }}">Appointments</a></li>
+        {% else %}
+          <li><a href="{{ url_for('predict') }}">Face Analysis</a></li>
+          <li><a href="{{ url_for('bookappointment') }}">Book Appointment</a></li>
+          <li><a href="{{ url_for('userappoint') }}">My Appointments</a></li>
+          <li><a href="{{ url_for('profile') }}">Profile</a></li>
+        {% endif %}
+        <li><a href="{{ url_for('logout') }}">Logout</a></li>
+      {% else %}
+        <li><a href="{{ url_for('login') }}">Login</a></li>
+        <li><a href="{{ url_for('register') }}">Register</a></li>
+      {% endif %}
+    </ul>
+  </nav>
+
+  <!-- Toast Container -->
+  <div id="toast-container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% for category, message in messages %}
+        <div class="toast {{ category }}">
+          <div class="toast-icon">
+            <i class="fas {{ 'fa-check-circle' if category == 'success' else 'fa-exclamation-circle' }}"></i>
+          </div>
+          <div class="toast-message">
+            {{ message }}
+          </div>
+          <div class="toast-close" onclick="this.parentElement.remove()">
+            &times;
+          </div>
+        </div>
+      {% endfor %}
+    {% endwith %}
+  </div>
+
+  <!-- Page Content -->
+  <main class="content">
+    {% block content %}{% endblock %}
+  </main>
+
+  <script>
+    // Auto-remove toasts after 5 seconds
+    document.querySelectorAll('.toast').forEach(toast => {
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 300);
+      }, 5000);
+      
+      // Click to dismiss
+      toast.addEventListener('click', () => {
+        toast.style.opacity = '0';
+        setTimeout(() => toast.remove(), 300);
+      });
+    });
+  </script>
+</body>
+</html>

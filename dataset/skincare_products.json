@@ -1,0 +1,272 @@
+{
+  "dryness": [
+    {
+      "Brand": "Neutrogena",
+      "Name": "Hydro Boost Hyaluronic Acid Serum",
+      "Image_URL": "https://m.media-amazon.com/images/I/51+rZQwPepL._SY355_.jpg",
+      "Product_URL": "https://www.amazon.in/Neutrogena-Hydro-Boost-Hyaluronic-Serum/dp/B0794WFSVB"
+    },
+    {
+      "Brand": "Minimalist",
+      "Name": "Multi-Peptides 10% Face Serum",
+      "Image_URL": "https://sfycdn.speedsize.com/56385b25-4e17-4a9a-9bec-c421c18686fb/beminimalist.co/cdn/shop/files/MultiNew.png?crop=center&height=1260&v=1721398128&width=840",
+      "Product_URL": "https://beminimalist.co/products/multi-peptide-serum-7-matrixyl-3000-3-bio-placenta"
+    },
+    {
+      "Brand": "Foxtale",
+      "Name": "Hydrating Serum With Hyaluronic Acid & 6 Hydration Boosters",
+      "Image_URL": "https://images-static.nykaa.com/media/catalog/product/f/e/fe08008FOXTA00000008_1.jpg?tr=w-344,h-344,cm-pad_resize",
+      "Product_URL": "https://www.nykaa.com/foxtale-hydrating-serum-with-hyaluronic-acid/p/10071428"
+    },
+    {
+      "Brand": "Vanicream",
+      "Name": "Daily Facial Moisturizer Skin Cream",
+      "Image_URL": "https://m.media-amazon.com/images/I/51ryHci9W3L._SY355_.jpg",
+      "Product_URL": "https://amzn.in/d/5BwNow0"
+    },
+    {
+      "Brand": "La Roche-Posay",
+      "Name": "Toleriane Double Repair Face Moisturizer",
+      "Image_URL": "https://m.media-amazon.com/images/I/51x78epntaL._SX522_.jpg",
+      "Product_URL": "https://www.amazon.in/Roche-Posay-Toleriane-Double-Moisturizer-Sensitive/dp/B01N9SPQHQ"
+    }
+  ],
+  "whitehead": [
+    {
+      "Brand": "Foxtale",
+      "Name": "Acne Spot Corrector Gel with Salicylic Acid",
+      "Image_URL": "https://foxtale.in/cdn/shop/files/1_1_a22d58fe-f253-479c-be71-15bf6d861bb1.jpg?v=1743840797&width=800",
+      "Product_URL": "https://foxtale.in/products/acne-spot-corrector-gel"
+    },
+    {
+      "Brand": "Paula's Choice",
+      "Name": "Skin Perfecting 2% BHA Liquid Exfoliant",
+      "Image_URL": "https://www.paulaschoice.in/cdn/shop/products/SKU2010_720x.png?v=1722493898",
+      "Product_URL": "https://www.paulaschoice.in/products/skin-perfecting-2-bha-liquid-exfoliant"
+    },
+    {
+      "Brand": "Minimalist",
+      "Name": "AHA BHA 10% Face Exfoliator",
+      "Image_URL": "https://sfycdn.speedsize.com/56385b25-4e17-4a9a-9bec-c421c18686fb/beminimalist.co/cdn/shop/products/aha-bha-10-1200--1min-1645781661616.png?crop=center&height=1260&v=1647004182&width=840",
+      "Product_URL": "https://beminimalist.co/products/aha-bha-10"
+    },
+    {
+      "Brand": "Foxtale",
+      "Name": "AHA BHA Exfoliating Serum with Salicylic and Glycolic Acid",
+      "Image_URL": "https://foxtale.in/cdn/shop/files/1_2_7f804494-99b9-4b3c-aeef-482bfb7a8fce.jpg?v=1743840835&width=800",
+      "Product_URL": "https://foxtale.in/products/aha-bha-serum-with-salicylic-and-glycolic-acid"
+    }
+  ],
+  "pustule": [
+    {
+      "Brand": "Clearbet",
+      "Name": "Clearbet Anti Acne Gel",
+      "Image_URL": "https://zeelabpharmacy.com/public/uploads/files/MW5ff044f401c2b-400X.jpg",
+      "Product_URL": "https://zeelabpharmacy.com/product/clearbet-anti-acne-gel"
+    },
+    {
+      "Brand": "La Roche-Posay",
+      "Name": "Effaclar Duo Dual Action Acne Spot Treatment",
+      "Image_URL": "https://www.laroche-posay.us/dw/image/v2/AANG_PRD/on/demandware.static/-/Sites-acd-laroche-posay-master-catalog/default/dwa3f470a4/img/effaclarduoacnespottreatment/effaclar-duo-acne-spot-treatment-883140500759-1.jpg?sw=678&sh=678&sm=cut&sfrm=jpg&q=70",
+      "Product_URL": "https://www.amazon.in/Roche-Posay-Effaclar-Action-Treatment-DESCRIPTION/dp/B07DP4ZDL3"
+    },
+    {
+      "Brand": "Acnerem",
+      "Name": "Anti Acne Gel",
+      "Image_URL": "https://zeelabpharmacy.com/public/uploads/files/MW5f71ad535e871-400X.jpg",
+      "Product_URL": "https://zeelabpharmacy.com/product/acnerem-anti-acne-gel"
+    },
+    {
+      "Brand": "First Aid Beauty",
+      "Name": "Pharma BHA Acne Spot Treatment Gel",
+      "Image_URL": "https://m.media-amazon.com/images/I/41CfgFBo+sL._SX522_.jpg",
+      "Product_URL": "https://shorturl.at/fOVBw"
+    }
+  ],
+  "papule": [
+    {
+      "Brand": "Neutrogena",
+      "Name": "Oil-Free Acne Wash",
+      "Image_URL": "https://m.media-amazon.com/images/I/5171tsojQ1L._SX522_.jpg",
+      "Product_URL": "https://www.amazon.in/Neutrogena-Free-Acne-Face-175ml/dp/B006LXDMCS"
+    },
+    {
+      "Brand": "Mamaearth",
+      "Name": "Oil-Free Face Wash with Apple Cider Vinegar & Salicylic Acid",
+      "Image_URL": "https://images.mamaearth.in/catalog/product/o/i/oil-free-face-wash_1.jpg?format=auto&height=600",
+      "Product_URL": "https://mamaearth.in/product-category/face-wash-for-oily-skin"
+    },
+    {
+      "Brand": "Foxtale",
+      "Name": "Acne Control Cleanser STAT",
+      "Image_URL": "https://foxtale.in/cdn/shop/files/1_5142d0cf-e0fe-4098-a196-4e20a4163942.jpg?v=1743840753&width=800",
+      "Product_URL": "https://foxtale.in/products/acne-control-cleanser?variant=43828054425847&country=IN¤cy=INR&srsltid=AfmBOop5ntNDoFC-F35DehZafKzrsddloHiQHqaD5V9TIwFYUqQaB9gLCS8"
+    },
+    {
+      "Brand": "The Derma Co",
+      "Name": "Face Peeling Solution",
+      "Image_URL": "https://images.thedermaco.com/catalog/product/1/5/15__aha_1__bha_peeling_solution_colored_bg.jpg?auto=format&fit=contain&width=720&auto=compress?format=auto",
+      "Product_URL": "https://thedermaco.com/product/15-aha-1-bha-beginner-face-peeling-solution"
+    }
+  ],
+  "blackhead": [
+    {
+      "Brand": "Dr. Rashel",
+      "Name": "Bamboo Charcoal Nose Strips for Blackheads Removal (10 Strips)",
+      "Image_URL": "https://dr.rashel.in/cdn/shop/files/CharcoalNoseStrip10pcsslide-01_c3d20eb2-d685-4abd-8d4f-8a7ea6286803_360x.jpg?v=1736934474",
+      "Product_URL": "https://dr.rashel.in/collections/black-heads/products/bamboo-charcoal-nose-strips-for-blackheads-removal"
+    },
+    {
+      "Brand": "UrbanBotanics",
+      "Name": "Activated Charcoal Peel Off Mask (100 g)",
+      "Image_URL": "https://cdn.shopify.com/s/files/1/0275/8247/9327/products/urbanbotanics-activated-charcoal-peel-off-mask.jpg",
+      "Product_URL": "https://www.nykaa.com/urbanbotanics-activated-charcoal-peel-off-mask/p/123456"
+    },
+    {
+      "Brand": "Just Herbs",
+      "Name": "Coffee Face and Body Scrub (100 ml)",
+      "Image_URL": "https://www.justherbs.in/cdn/shop/files/Coffee_WalnutBodyScrub_1280x.jpg?v=1718084201",
+      "Product_URL": "https://www.justherbs.in/products/face-and-body-scrub-coffee-and-walnut?srsltid=AfmBOorM8SFqJdN58CrgaeW1wfWD1ZwxUr-WjoPns3xzbuORDgiFjC1D&variant=39870682366029"
+    },
+    {
+      "Brand": "Sanfe",
+      "Name": "Deep Cleansing Forehead, Chin & Nose Strips (Pack of 18)",
+      "Image_URL": "https://rukminim2.flixcart.com/image/832/832/xif0q/blackhead-remover/z/c/m/18-8904355911245-sanfe-original-imagmqt7xjqegfpy.jpeg?q=70&crop=false",
+      "Product_URL": "https://www.nykaa.com/sanfe-deep-cleansing-forehead-chin-nose-strips/p/345678"
+    },
+    {
+      "Brand": "Neutrogena",
+      "Name": "Deep Clean Blackhead Eliminating Daily Scrub (100 g)",
+      "Image_URL": "https://shorturl.at/zC1hv",
+      "Product_URL": "https://shorturl.at/1rzEg"
+    }
+  ],
+  "PIH": [
+    {
+      "Brand": "Dot & Key",
+      "Name": "Advanced Spot Targeting Serum for Hyperpigmentation & Dark Spots",
+      "Image_URL": "https://worldofasaya.com/cdn/shop/files/FOP_s_changed_with_beauty_badge-85.jpg?v=1736225627&width=900",
+      "Product_URL": "https://worldofasaya.com/products/advanced-spot-targeting-serum-india"
+    },
+    {
+      "Brand": "The Ordinary",
+      "Name": "Niacinamide 10% + Zinc 1%",
+      "Image_URL": "https://shorturl.at/B51Fh",
+      "Product_URL": "https://theordinary.com/en-in/niacinamide-10-zinc-1-serum-100436.html"
+    },
+    {
+      "Brand": "Minimalist",
+      "Name": "2% Alpha Arbutin Face Serum with Butylresorcinol",
+      "Image_URL": "https://shorturl.at/aFzHu",
+      "Product_URL": "https://beminimalist.co/products/alpha-arbutin-2?srsltid=AfmBOoorq-CczkA_4KXgl17Obsuncm3J3MrL2RBIVnlecTrY9Zba716g"
+    },
+    {
+      "Brand": "Mamaearth",
+      "Name": "Bye Bye Blemishes Face Cream",
+      "Image_URL": "https://images.mamaearth.in/catalog/product/b/y/bye_bye_blemishes_1_1.jpg?format=auto&height=600",
+      "Product_URL": "https://shorturl.at/SL6Cp"
+    },
+    {
+      "Brand": "Zeelab Pharmacy",
+      "Name": "Kojic Acid and Vitamin C Cream",
+      "Image_URL": "https://zeelabpharmacy.com/public/uploads/files/MW67c56d0ea2647-400X.jpg",
+      "Product_URL": "https://zeelabpharmacy.com/product/kojic-acid-and-vitamin-c-cream-20-gm"
+    }
+  ],
+  "Dark Circle": [
+    {
+      "Brand": "The Ordinary",
+      "Name": "Caffeine Solution 5% + EGCG",
+      "Image_URL": "https://images-static.nykaa.com/media/catalog/product/b/e/be25390769915195712_1.png?tr=w-344,h-344,cm-pad_resize",
+      "Product_URL": "https://www.nykaa.com/the-ordinary-caffeine-solution-5percent-egcg/p/5003169"
+    },
+    {
+      "Brand": "Aroma Magic",
+      "Name": "Under Eye Gel Brightens and Refreshes",
+      "Image_URL": "https://m.media-amazon.com/images/I/41bNlFZsJ9L._SX300_SY300_QL70_FMwebp_.jpg",
+      "Product_URL": "https://www.amazon.in/Aroma-Magic-Under-Eye-Gel/dp/B007E9HLAM"
+    },
+    {
+      "Brand": "Vilvah",
+      "Name": "Natural Under Eye Cream (Dark Circles Control)",
+      "Image_URL": "https://www.vilvahstore.com/cdn/shop/files/eye-cream_1.jpg?v=1692084385&width=1000",
+      "Product_URL": "https://www.vilvahstore.com/products/natural-under-eyecare-cream"
+    },
+    {
+      "Brand": "Mamaearth",
+      "Name": "Bye Bye Dark Circles Eye Cream with Cucumber and Peptides",
+      "Image_URL": "https://images.mamaearth.in/catalog/product/b/y/bye_bye_blemishes_2_2.jpg?format=auto&height=600",
+      "Product_URL": "https://mamaearth.in/product/bye-bye-dark-circles-eye-cream-with-cucumber-peptides-for-dark-circles-20ml"
+    },
+    {
+      "Brand": "MCaffeine",
+      "Name": "Green Tea Under Eye Cream with 3% Caffeine",
+      "Image_URL": "https://www.mcaffeine.com/cdn/shop/files/Card1_4.jpg?v=1682422518",
+      "Product_URL": "https://www.mcaffeine.com/products/green-tea-under-eye-cream?srsltid=AfmBOoos7my-vFfrh9I44l4-BJkBgHroaqjocBRd_C0FKxIq3QhrydMx"
+    }
+  ],
+  "normal/dry skin": [
+    {
+      "Brand": "Plum",
+      "Name": "Bulgarian Rose and 1% Hyaluronic Acid Dew-it-light Gel Cream",
+      "Image_URL": "https://plumgoodness.com/cdn/shop/files/01_92665dbf-af1f-467c-961f-6ecd086dc890.webp?v=1745572197&width=900",
+      "Product_URL": "https://plumgoodness.com/products/bulgarian-rose-and-1-hyaluronic-acid-dew-it-light-gel-cream?srsltid=AfmBOoqkXnljhGsY_cf_wHBGKFj1xJmH5o7StzhyP_RcJ6SGkl2CnoNq"
+    },
+    {
+      "Brand": "Plum",
+      "Name": "2% Niacinamide & Rice Water Gel Cream",
+      "Image_URL": "https://plumgoodness.com/cdn/shop/files/01_922004ff-a58c-48e5-9f32-0b4d9c3bce93.jpg?v=1745388839&width=900",
+      "Product_URL": "https://plumgoodness.com/products/thinkderma-2-niacinamide-rice-water-clear-moisture-gel-cream-all-day-non-greasy-moisturizer-fades-blemishes-brightens-skin-3-matmarine-for-oil-control-lightweight-non-sticky-100-vegan?srsltid=AfmBOoquZTpoy-00fWmKCpn3Zz-Zn1AWUHx3c0o3AngPzY2w1lpT9PRY"
+    },
+    {
+      "Brand": "Mamaearth",
+      "Name": "Aqua Gel Moisturizer with Himalayan Thermal Water & Hyaluronic Acid",
+      "Image_URL": "https://images.mamaearth.in/catalog/product/a/q/aqua-glow-gel-face-moisturizer-1_1.jpg?format=auto&height=600",
+      "Product_URL": "https://mamaearth.in/product/aqua-glow-gel-face-moisturizer-with-himalayan-thermal-water-and-hyaluronic-acid-for-72-hours-hydration-100ml?srsltid=AfmBOooeBjOWa5p4Fd62Mp7ahMnG-rK06Hdob_LIoNuQPB91znHqmWye"
+    },
+    {
+      "Brand": "The Skin Story",
+      "Name": "Aqua Boost Moisturizer for Oily Skin",
+      "Image_URL": "https://rukminim2.flixcart.com/image/832/832/xif0q/moisturizer-cream/v/o/j/50-aqua-boost-all-day-moisturiser-50ml-the-skin-story-serum-original-imagtsd26uueezr2.jpeg?q=70&crop=false",
+      "Product_URL": "https://www.flipkart.com/skin-story-aqua-boost-moisturizer-oily-skin-water-based-fast-absorbing-light-weight/p/itm2df9bc9328982"
+    },
+    {
+      "Brand": "Minimalist",
+      "Name": "B5 Hydrating Gel Moisturizer",
+      "Image_URL": "https://sfycdn.speedsize.com/56385b25-4e17-4a9a-9bec-c421c18686fb/beminimalist.co/cdn/shop/products/B5Moisturizer1200-2-min.png?crop=center&height=1260&v=1741532482&width=840",
+      "Product_URL": "https://beminimalist.co/products/vitamin-b5-10-moisturizer?srsltid=AfmBOoqn-Lg8llvWGkEyXnzjNwJw0JexelkwqClD4-p69yeE7-9s2eK3"
+    }
+  ],
+  "oily skin": [
+    {
+      "Brand": "Neutrogena",
+      "Name": "Deep Clean Blackhead Eliminating Daily Scrub (100 g)",
+      "Image_URL": "https://shorturl.at/zC1hv",
+      "Product_URL": "https://shorturl.at/1rzEg"
+    },
+    {
+      "Brand": "The Ordinary",
+      "Name": "Niacinamide 10% + Zinc 1%",
+      "Image_URL": "https://shorturl.at/B51Fh",
+      "Product_URL": "https://theordinary.com/en-in/niacinamide-10-zinc-1-serum-100436.html"
+    },
+    {
+      "Brand": "Aroma Magic",
+      "Name": "Under Eye Gel Brightens and Refreshes",
+      "Image_URL": "https://m.media-amazon.com/images/I/41bNlFZsJ9L._SX300_SY300_QL70_FMwebp_.jpg",
+      "Product_URL": "https://www.amazon.in/Aroma-Magic-Under-Eye-Gel/dp/B007E9HLAM"
+    },
+    {
+      "Brand": "The Skin Story",
+      "Name": "Aqua Boost Moisturizer for Oily Skin",
+      "Image_URL": "https://rukminim2.flixcart.com/image/832/832/xif0q/moisturizer-cream/v/o/j/50-aqua-boost-all-day-moisturiser-50ml-the-skin-story-serum-original-imagtsd26uueezr2.jpeg?q=70&crop=false",
+      "Product_URL": "https://www.flipkart.com/skin-story-aqua-boost-moisturizer-oily-skin-water-based-fast-absorbing-light-weight/p/itm2df9bc9328982"
+    },
+    {
+      "Brand": "Paula's Choice",
+      "Name": "Skin Perfecting 2% BHA Liquid Exfoliant",
+      "Image_URL": "https://images-static.paulaschoice.com/media/catalog/product/skin-perfecting-2-bha-liquid-exfoliant.jpg",
+      "Product_URL": "https://www.paulaschoice.in/products/skin-perfecting-2-bha-liquid-exfoliant"
+    }
+  ]
+}
