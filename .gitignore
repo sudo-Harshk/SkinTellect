@@ -48,6 +48,13 @@ ENV/
 # Media files
 static/uploads/
 static/annotations_*.jpg
+static/*.jpg
+static/*.jpeg
+static/*.png
+static/*.gif
+static/assets/
+static/images/
+static/*.webp
 
 # OS generated files
 .DS_Store
