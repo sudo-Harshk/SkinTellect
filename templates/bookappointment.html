@@ -47,7 +47,10 @@
                 <!-- Row 3: Phone and Age - perfectly aligned -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div class="w-full">
-                        <input type="tel" name="phone" placeholder="Phone No." class="h-12 w-full p-4 outline-none border-2 border-gray-300 rounded-md focus:border-green-500 focus:ring-2 focus:ring-green-500 transition" required>
+                        <div class="relative">
+                            <span class="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500">+91</span>
+                            <input type="tel" name="phone" placeholder="Phone No." class="h-12 w-full pl-12 p-4 outline-none border-2 border-gray-300 rounded-md focus:border-green-500 focus:ring-2 focus:ring-green-500 transition" required pattern="[0-9]{10}" maxlength="10" title="Please enter a valid 10-digit phone number">
+                        </div>
                     </div>
                     <div class="w-full">
                         <input type="number" name="age" placeholder="Enter your Age" class="h-12 w-full p-4 outline-none border-2 border-gray-300 rounded-md focus:border-green-500 focus:ring-2 focus:ring-green-500 transition" value="{{ age }}" required>
@@ -249,8 +252,10 @@
 <script>
 document.querySelector('#appointment-form').addEventListener('submit', function (e) {
     const email = document.querySelector('input[name="email"]').value;
+    const phone = document.querySelector('input[name="phone"]').value;
     const concerns = document.querySelectorAll('input[name="concerns"]:checked');
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const phoneRegex = /^[0-9]{10}$/;
     const btn = document.querySelector('#submit-btn');
 
     // Clear previous error messages
@@ -261,6 +266,13 @@ document.querySelector('#appointment-form').addEventListener('submit', function 
     if (!emailRegex.test(email)) {
         e.preventDefault();
         showError('Please enter a valid email address.');
+        return;
+    }
+
+    // Validate phone number
+    if (!phoneRegex.test(phone)) {
+        e.preventDefault();
+        showError('Please enter a valid 10-digit phone number.');
         return;
     }
 
