@@ -302,7 +302,12 @@ def appointment():
     
     # Clean and format phone number
     if phone:
+        # Remove any non-digit characters
         phone = ''.join(filter(str.isdigit, phone))
+        # Add +91 prefix if not present
+        if not phone.startswith('91'):
+            phone = '91' + phone
+        # Add + prefix for Twilio
         if not phone.startswith('+'):
             phone = '+' + phone
         print(f"Processed appointment phone number: {phone}")
