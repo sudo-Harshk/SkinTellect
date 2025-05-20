@@ -601,7 +601,7 @@ def reject_appointment():
                 # Send SMS notification if phone number is provided
                 if appointment['phone']:
                     print(f"Attempting to send appointment rejection SMS to {appointment['phone']}")
-                    sms_message = f"Dear {appointment['name']}, we regret to inform you that we cannot accommodate your appointment request for {appointment['skin']} on {appointment['date']}. {reason} We would be honored to serve you at a more convenient time. Please feel free to book another appointment. -SkinTellect"
+                    sms_message = f"Dear {appointment['name']},\n\nWe regret to inform you that we cannot accommodate your appointment request for {appointment['date']}.\n\nPlease feel free to book another appointment at a more convenient time.\n\nBest regards,\nSkinTellect Team"
                     sms_sent = send_sms(appointment['phone'], sms_message)
                     if not sms_sent:
                         print(f"Failed to send appointment rejection SMS to {appointment['phone']}")
@@ -684,7 +684,7 @@ def update_status():
                 # Send SMS confirmation if phone number is provided
                 if appointment['phone']:
                     print(f"Attempting to send appointment acceptance SMS to {appointment['phone']}")
-                    sms_message = f"Dear {appointment['name']}, we're delighted to confirm your appointment for {appointment['skin']} on {appointment['date']}. Please arrive 10 minutes before your scheduled time. We look forward to providing you with exceptional care. -SkinTellect"
+                    sms_message = f"Dear {appointment['name']},\n\nYour appointment has been confirmed for {appointment['date']}.\n\nPlease arrive 10 minutes before your scheduled time.\n\nBest regards,\nSkinTellect Team"
                     sms_sent = send_sms(appointment['phone'], sms_message)
                     if not sms_sent:
                         print(f"Failed to send appointment acceptance SMS to {appointment['phone']}")
