@@ -109,32 +109,34 @@
 <script>
 // Enhanced Accept Appointment Function
 function acceptAppointment(appointmentId) {
-  showLoader();
-  fetch('/update_status', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
-    },
-    body: `appointment_id=${appointmentId}`
-  })
-  .then(response => {
-    if (!response.ok) throw new Error('Network response was not ok');
-    return response.json();
-  })
-  .then(data => {
-    hideLoader();
-    if (data.success) {
-      showToast('Appointment accepted successfully', 'success');
-      setTimeout(() => window.location.reload(), 1000);
-    } else {
-      showToast(data.error || 'Failed to accept appointment', 'error');
-    }
-  })
-  .catch(error => {
-    hideLoader();
-    showToast('An error occurred', 'error');
-    console.error('Error:', error);
-  });
+  if (confirm('Are you sure you want to accept this appointment?')) {
+    showLoader();
+    fetch('/update_status', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: `appointment_id=${appointmentId}`
+    })
+    .then(response => {
+      if (!response.ok) throw new Error('Network response was not ok');
+      return response.json();
+    })
+    .then(data => {
+      hideLoader();
+      if (data.success) {
+        showToast('Appointment accepted successfully', 'success');
+        setTimeout(() => window.location.reload(), 1000);
+      } else {
+        showToast(data.error || 'Failed to accept appointment', 'error');
+      }
+    })
+    .catch(error => {
+      hideLoader();
+      showToast('An error occurred', 'error');
+      console.error('Error:', error);
+    });
+  }
 }
 
 // Enhanced Reject Appointment Function
