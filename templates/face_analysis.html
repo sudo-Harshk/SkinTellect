@@ -21,7 +21,7 @@
             <div class="my-6 w-full p-12 rounded-2xl border-pink-500 border-2 border-dashed flex flex-col gap-4 justify-center items-center">
                 <input id="file" class="hidden" type="file" name="image" accept="image/*" onchange="previewImage(event)" required>
                 <p class="text-center text-lg">
-                    <span onclick="handleFileClick()" class="text-blue-500 font-semibold underline text-xl">Click Here</span> To Select File
+                    <span onclick="handleFileClick()" class="text-blue-500 font-semibold underline text-xl cursor-pointer hover:cursor-pointer" style="cursor: pointer;">Click Here</span> To Select File
                 </p>
                 <p class="mt-4 text-sm hidden" id="file-selected">File Selected!</p>
                 <img id="preview" src="#" alt="Image Preview" style="display: none; max-width: 100%; margin-top: 10px; border-radius: 10px;" />
