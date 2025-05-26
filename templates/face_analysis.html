@@ -7,38 +7,39 @@
     <img src="../static/assets/bg.webp" alt="" class="absolute top-0 left-0 w-full h-full object-cover brightness-[90%] z-0">
 
     <div class="my-12 w-[90vw] max-w-5xl bg-white bg-opacity-80 rounded-xl p-8 backdrop-blur-md z-10">
-        <h1 class="text-[40px] leading-[45px] font-bold">Upload Your Image</h1>
-        <p class="text-zinc-500 mt-1">Get Expert AI evaluations of your skin.</p>
+        {% if not data.classes %}
+            <h1 class="text-[40px] leading-[45px] font-bold">Upload Your Image</h1>
+            <p class="text-zinc-500 mt-1">Get Expert AI evaluations of your skin.</p>
 
-        {% if error %}
-            <div class="text-red-600 font-semibold mt-4">{{ error }}</div>
-        {% endif %}
-        {% if message %}
-            <div class="text-green-600 font-semibold mt-4">{{ message }}</div>
-        {% endif %}
+            {% if error %}
+                <div class="text-red-600 font-semibold mt-4">{{ error }}</div>
+            {% endif %}
+            {% if message %}
+                <div class="text-green-600 font-semibold mt-4">{{ message }}</div>
+            {% endif %}
 
-        <form action="/predict" method="post" enctype="multipart/form-data">
-            <div class="my-6 w-full p-12 rounded-2xl border-pink-500 border-2 border-dashed flex flex-col gap-4 justify-center items-center">
-                <input id="file" class="hidden" type="file" name="image" accept="image/*" onchange="previewImage(event)" required>
-                <p class="text-center text-lg">
-                    <span onclick="handleFileClick()" class="text-blue-500 font-semibold underline text-xl cursor-pointer hover:cursor-pointer" style="cursor: pointer;">Click Here</span> To Select File
-                </p>
-                <p class="mt-4 text-sm hidden" id="file-selected">File Selected!</p>
-                <img id="preview" src="#" alt="Image Preview" style="display: none; max-width: 100%; margin-top: 10px; border-radius: 10px;" />
-            </div>
+            <form action="/predict" method="post" enctype="multipart/form-data">
+                <div class="my-6 w-full p-12 rounded-2xl border-pink-500 border-2 border-dashed flex flex-col gap-4 justify-center items-center">
+                    <input id="file" class="hidden" type="file" name="image" accept="image/*" onchange="previewImage(event)" required>
+                    <p class="text-center text-lg">
+                        <span onclick="handleFileClick()" class="text-blue-500 font-semibold underline text-xl cursor-pointer hover:cursor-pointer" style="cursor: pointer;">Click Here</span> To Select File
+                    </p>
+                    <p class="mt-4 text-sm hidden" id="file-selected">File Selected!</p>
+                    <img id="preview" src="#" alt="Image Preview" style="display: none; max-width: 100%; margin-top: 10px; border-radius: 10px;" />
+                </div>
 
-            <button class="px-6 py-2 text-white text-lg font-semibold bg-pink-500 hover:bg-pink-600 rounded-xl mt-4" type="submit">
-                Predict
-            </button>
-        </form>
+                <button class="px-6 py-2 text-white text-lg font-semibold bg-pink-500 hover:bg-pink-600 rounded-xl mt-4" type="submit">
+                    Predict
+                </button>
+            </form>
+        {% else %}
+            <h1 class="text-[40px] leading-[45px] font-bold text-pink-600">Analysis Results</h1>
+            <p class="text-zinc-500 mt-1">Here's what we found in your skin analysis.</p>
 
-        <!-- Display Annotated Image -->
-        {% if data.classes %}
+            <!-- Display Annotated Image -->
             <img src="/static/annotations_0.jpg" class="mt-8 w-full max-h-[400px] rounded-xl object-contain">
-        {% endif %}
 
-        <!-- Display Predictions -->
-        {% if data.classes %}
+            <!-- Display Predictions -->
             <div class="mt-8">
                 <h2 class="text-2xl font-semibold mb-2">Detected Skin Conditions:</h2>
                 <ul class="list-disc list-inside text-gray-800">
@@ -47,45 +48,50 @@
                     {% endfor %}
                 </ul>
             </div>
-        {% endif %}
 
-        <!-- Display Recommendations -->
-        {% if data.recommendations %}
-            <div class="mt-10">
-                <h2 class="text-2xl font-semibold mb-4">Product Recommendations:</h2>
+            <!-- Display Recommendations -->
+            {% if data.recommendations %}
+                <div class="mt-10">
+                    <h2 class="text-2xl font-semibold mb-4">Product Recommendations:</h2>
 
-                {% for condition, products in data.recommendations %}
-                    <h3 class="text-xl font-semibold text-pink-700 mb-2">{{ condition }}</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                        {% for product in products %}
-                            <div class="product-card bg-white bg-opacity-90 border border-gray-200 rounded-xl shadow-md p-4 flex flex-col items-center hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
-                                {% if product.Image_URL %}
-                                    <div class="product-image-container overflow-hidden rounded-lg">
-                                        <img src="{{ product.Image_URL }}" alt="{{ product.Name }}" class="w-24 h-24 object-contain mb-3 product-image">
-                                    </div>
-                                {% else %}
-                                    <div class="w-24 h-24 bg-gray-200 flex items-center justify-center text-gray-500 mb-3 rounded product-image-container">
-                                        No Image
-                                    </div>
-                                {% endif %}
-                                <h4 class="font-semibold text-lg text-center">
-                                    {% if product.Product_URL %}
-                                        <a href="{{ product.Product_URL }}" target="_blank" class="text-blue-600 hover:underline product-link">
-                                            {{ product.Brand }} - {{ product.Name }}
-                                        </a>
+                    {% for condition, products in data.recommendations %}
+                        <h3 class="text-xl font-semibold text-pink-700 mb-2">{{ condition }}</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                            {% for product in products %}
+                                <div class="product-card bg-white bg-opacity-90 border border-gray-200 rounded-xl shadow-md p-4 flex flex-col items-center hover:shadow-lg transition-all duration-300 transform hover:-translate-y-2">
+                                    {% if product.Image_URL %}
+                                        <div class="product-image-container overflow-hidden rounded-lg">
+                                            <img src="{{ product.Image_URL }}" alt="{{ product.Name }}" class="w-24 h-24 object-contain mb-3 product-image">
+                                        </div>
                                     {% else %}
-                                        {{ product.Brand }} - {{ product.Name }}
+                                        <div class="w-24 h-24 bg-gray-200 flex items-center justify-center text-gray-500 mb-3 rounded product-image-container">
+                                            No Image
+                                        </div>
                                     {% endif %}
-                                </h4>
-                            </div>
-                        {% endfor %}
-                    </div>
-                {% endfor %}
-
-                <!-- Book Appointment Button -->
-                <div class="mt-8 text-center">
-                    <a href="/bookappointment" class="btn btn-primary">Book Appointment</a>
+                                    <h4 class="font-semibold text-lg text-center">
+                                        {% if product.Product_URL %}
+                                            <a href="{{ product.Product_URL }}" target="_blank" class="product-link">
+                                                {{ product.Brand }} - {{ product.Name }}
+                                            </a>
+                                        {% else %}
+                                            {{ product.Brand }} - {{ product.Name }}
+                                        {% endif %}
+                                    </h4>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
                 </div>
+            {% endif %}
+
+            <!-- Buttons Container -->
+            <div class="mt-8 text-center flex justify-center gap-4">
+                <a href="/bookappointment" class="px-6 py-2 text-white text-lg font-semibold bg-pink-500 hover:bg-pink-600 rounded-xl transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg">
+                    Book Appointment
+                </a>
+                <a href="/predict" class="px-6 py-2 text-white text-lg font-semibold bg-pink-500 hover:bg-pink-600 rounded-xl transition-all duration-300 transform hover:-translate-y-1 hover:shadow-lg">
+                    New Analysis
+                </a>
             </div>
         {% endif %}
     </div>
@@ -93,7 +99,6 @@
 
 <!-- Add GSAP CDN -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
 <script>
     const fileInput = document.getElementById('file');
@@ -166,6 +171,26 @@
                 });
             });
         });
+
+        // Add hover animations for buttons
+        const buttons = document.querySelectorAll('a[href="/bookappointment"], a[href="/predict"]');
+        buttons.forEach(button => {
+            button.addEventListener('mouseenter', () => {
+                gsap.to(button, {
+                    y: -5,
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+            });
+
+            button.addEventListener('mouseleave', () => {
+                gsap.to(button, {
+                    y: 0,
+                    duration: 0.3,
+                    ease: "power2.out"
+                });
+            });
+        });
     });
 </script>
 
@@ -225,6 +250,17 @@
         position: relative;
         z-index: 3;
         color: #ec4899;
+    }
+
+    /* Button styles */
+    a[href="/bookappointment"], a[href="/predict"] {
+        display: inline-block;
+        transition: all 0.3s ease;
+    }
+
+    a[href="/bookappointment"]:hover, a[href="/predict"]:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(236, 72, 153, 0.2);
     }
 </style>
 {% endblock %}

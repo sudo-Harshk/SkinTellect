@@ -61,15 +61,50 @@
       align-items: center;
     }
 
-    .nav-links a {
+    nav .nav-links a,
+    nav .nav-links a:visited,
+    nav .nav-links a:active {
       color: var(--text-primary);
       font-weight: 500;
-      transition: color 0.2s ease;
       text-decoration: none;
+      background: none;
+      box-shadow: none;
+      border-radius: 0;
+      padding: 0;
+      border: none;
+      transition: none;
     }
 
-    .nav-links a:hover {
+    nav .nav-links a:hover {
+      color: var(--text-primary);
+      background: none;
+      text-decoration: none;
+      box-shadow: none;
+      border: none;
+    }
+
+    nav .nav-links a.active {
       color: var(--primary);
+      font-weight: 700;
+      background: none;
+      box-shadow: none;
+      border: none;
+    }
+
+    nav .nav-links a.no-hover:hover {
+      color: inherit !important;
+      font-weight: inherit !important;
+      text-decoration: none !important;
+      background: none !important;
+      box-shadow: none !important;
+      border-bottom: none !important;
+    }
+
+    /*
+    .nav-links a::after,
+    .nav-links a:hover::after {
+      content: none !important;
+      display: none !important;
     }
 
     /* Toast */
@@ -180,12 +215,37 @@
           <li><a href="{{ url_for('doctor') }}">Dashboard</a></li>
           <li><a href="{{ url_for('allappoint') }}">Appointments</a></li>
         {% else %}
-          <li><a href="{{ url_for('predict') }}">Face Analysis</a></li>
-          <li><a href="{{ url_for('bookappointment') }}">Book Appointment</a></li>
-          <li><a href="{{ url_for('userappoint') }}">My Appointments</a></li>
-          <li><a href="{{ url_for('profile') }}">Profile</a></li>
+          <li>
+            <a href="{{ url_for('predict') }}"
+               class="no-hover {% if request.path == url_for('predict') %}active{% endif %}">
+               Face Analysis
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('bookappointment') }}"
+               class="no-hover {% if request.path == url_for('bookappointment') %}active{% endif %}">
+               Book Appointment
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('userappoint') }}"
+               class="no-hover {% if request.path == url_for('userappoint') %}active{% endif %}">
+               My Appointments
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('profile') }}"
+               class="no-hover {% if request.path == url_for('profile') %}active{% endif %}">
+               Profile
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('logout') }}"
+               class="no-hover {% if request.path == url_for('logout') %}active{% endif %}">
+               Logout
+            </a>
+          </li>
         {% endif %}
-        <li><a href="{{ url_for('logout') }}">Logout</a></li>
       {% else %}
         <li><a href="{{ url_for('login') }}">Login</a></li>
         <li><a href="{{ url_for('register') }}">Register</a></li>
