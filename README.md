@@ -83,8 +83,6 @@ The application will be available at `http://localhost:5000`
 4. Push to the branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-
-
 ## Acknowledgments
 
 - Roboflow for AI model hosting
