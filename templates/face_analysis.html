@@ -129,9 +129,11 @@
         const productCards = document.querySelectorAll('.product-card');
         
         productCards.forEach(card => {
+            const image = card.querySelector('.product-image');
+            
             card.addEventListener('mouseenter', () => {
-                gsap.to(card.querySelector('.product-image'), {
-                    scale: 1.1,
+                gsap.to(image, {
+                    scale: 1.15,
                     duration: 0.4,
                     ease: "power2.out"
                 });
@@ -142,7 +144,6 @@
                     ease: "power2.out"
                 });
 
-                // Add a subtle glow effect with pink
                 gsap.to(card, {
                     boxShadow: "0 20px 40px rgba(236, 72, 153, 0.1)",
                     duration: 0.4,
@@ -151,7 +152,7 @@
             });
 
             card.addEventListener('mouseleave', () => {
-                gsap.to(card.querySelector('.product-image'), {
+                gsap.to(image, {
                     scale: 1,
                     duration: 0.4,
                     ease: "power2.out"
@@ -163,9 +164,8 @@
                     ease: "power2.out"
                 });
 
-                // Remove glow effect
                 gsap.to(card, {
-                    boxShadow: "0 15px 30px rgba(236, 72, 153, 0.15)",
+                    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
                     duration: 0.4,
                     ease: "power2.out"
                 });
@@ -218,11 +218,19 @@
         border-radius: 0.5rem;
         background: white;
         padding: 0.5rem;
+        width: 100%;
+        height: 120px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .product-image {
         transition: all 0.3s ease;
         will-change: transform;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
     }
 
     .product-link {
