@@ -9,6 +9,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 
   <style>
     :root {
@@ -57,55 +58,51 @@
 
     .nav-links {
       display: flex;
-      gap: 1.5rem;
+      gap: 2.5rem;
       align-items: center;
     }
 
-    nav .nav-links a,
-    nav .nav-links a:visited,
-    nav .nav-links a:active {
+    nav .nav-link {
+      position: relative;
       color: var(--text-primary);
+      text-decoration: none;
       font-weight: 500;
-      text-decoration: none;
+      padding: 0 0.5rem;
       background: none;
-      box-shadow: none;
+      border: none;
       border-radius: 0;
-      padding: 0;
-      border: none;
+      transition: color 0.2s;
+      display: inline-block;
+    }
+
+    nav .nav-link .nav-underline {
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 3px;
+      background: var(--primary);
+      border-radius: 2px;
       transition: none;
+      pointer-events: none;
     }
 
-    nav .nav-links a:hover {
-      color: var(--text-primary);
-      background: none;
-      text-decoration: none;
-      box-shadow: none;
-      border: none;
+    nav .nav-link:hover,
+    nav .nav-link:focus {
+      color: var(--primary);
     }
 
-    nav .nav-links a.active {
+    nav .nav-link.active {
       color: var(--primary);
       font-weight: 700;
-      background: none;
-      box-shadow: none;
-      border: none;
     }
 
-    nav .nav-links a.no-hover:hover {
-      color: inherit !important;
-      font-weight: inherit !important;
-      text-decoration: none !important;
-      background: none !important;
-      box-shadow: none !important;
-      border-bottom: none !important;
+    nav .nav-link.active .nav-underline {
+      width: 100% !important;
+      height: 3px;
+      background: var(--primary);
     }
 
-    /*
-    .nav-links a::after,
-    .nav-links a:hover::after {
-      content: none !important;
-      display: none !important;
-    }
 
     /* Toast */
     #toast-container {
@@ -212,43 +209,18 @@
     <ul class="nav-links">
       {% if session.username %}
         {% if session.username == 'doctor' %}
-          <li><a href="{{ url_for('doctor') }}">Dashboard</a></li>
-          <li><a href="{{ url_for('allappoint') }}">Appointments</a></li>
+          <li><a href="{{ url_for('doctor') }}" class="nav-link{% if request.path == url_for('doctor') %} active{% endif %}">Dashboard<span class="nav-underline"></span></a></li>
+          <li><a href="{{ url_for('allappoint') }}" class="nav-link{% if request.path == url_for('allappoint') %} active{% endif %}">Appointments<span class="nav-underline"></span></a></li>
         {% else %}
-          <li>
-            <a href="{{ url_for('predict') }}"
-               class="no-hover {% if request.path == url_for('predict') %}active{% endif %}">
-               Face Analysis
-            </a>
-          </li>
-          <li>
-            <a href="{{ url_for('bookappointment') }}"
-               class="no-hover {% if request.path == url_for('bookappointment') %}active{% endif %}">
-               Book Appointment
-            </a>
-          </li>
-          <li>
-            <a href="{{ url_for('userappoint') }}"
-               class="no-hover {% if request.path == url_for('userappoint') %}active{% endif %}">
-               My Appointments
-            </a>
-          </li>
-          <li>
-            <a href="{{ url_for('profile') }}"
-               class="no-hover {% if request.path == url_for('profile') %}active{% endif %}">
-               Profile
-            </a>
-          </li>
-          <li>
-            <a href="{{ url_for('logout') }}"
-               class="no-hover {% if request.path == url_for('logout') %}active{% endif %}">
-               Logout
-            </a>
-          </li>
+          <li><a href="{{ url_for('predict') }}" class="nav-link{% if request.path == url_for('predict') %} active{% endif %}">Face Analysis<span class="nav-underline"></span></a></li>
+          <li><a href="{{ url_for('bookappointment') }}" class="nav-link{% if request.path == url_for('bookappointment') %} active{% endif %}">Book Appointment<span class="nav-underline"></span></a></li>
+          <li><a href="{{ url_for('userappoint') }}" class="nav-link{% if request.path == url_for('userappoint') %} active{% endif %}">My Appointments<span class="nav-underline"></span></a></li>
+          <li><a href="{{ url_for('profile') }}" class="nav-link{% if request.path == url_for('profile') %} active{% endif %}">Profile<span class="nav-underline"></span></a></li>
+          <li><a href="{{ url_for('logout') }}" class="nav-link{% if request.path == url_for('logout') %} active{% endif %}">Logout<span class="nav-underline"></span></a></li>
         {% endif %}
       {% else %}
-        <li><a href="{{ url_for('login') }}">Login</a></li>
-        <li><a href="{{ url_for('register') }}">Register</a></li>
+        <li><a href="{{ url_for('login') }}" class="nav-link{% if request.path == url_for('login') %} active{% endif %}">Login<span class="nav-underline"></span></a></li>
+        <li><a href="{{ url_for('register') }}" class="nav-link{% if request.path == url_for('register') %} active{% endif %}">Register<span class="nav-underline"></span></a></li>
       {% endif %}
     </ul>
   </nav>
@@ -290,6 +262,24 @@
         toast.style.opacity = '0';
         setTimeout(() => toast.remove(), 300);
       });
+    });
+
+    document.querySelectorAll('.nav-link').forEach(link => {
+      const underline = link.querySelector('.nav-underline');
+      link.addEventListener('mouseenter', () => {
+        gsap.to(underline, { width: '100%', duration: 0.3, ease: 'power2.out' });
+      });
+      link.addEventListener('mouseleave', () => {
+        if (!link.classList.contains('active')) {
+          gsap.to(underline, { width: 0, duration: 0.3, ease: 'power2.in' });
+        }
+      });
+      // On page load, set underline for active link
+      if (link.classList.contains('active')) {
+        gsap.set(underline, { width: '100%' });
+      } else {
+        gsap.set(underline, { width: 0 });
+      }
     });
   </script>
 </body>
