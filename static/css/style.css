@@ -1,6 +1,5 @@
 /* Font Imports */
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap');
-
 /* Base Styles */
 :root {
   --primary: #ec4899; /* rose-500 */
@@ -464,4 +463,23 @@ select:focus {
 
 .input-icon input {
   padding-left: 2.5rem;
+}
+
+nav .nav-link,
+nav .nav-link:hover,
+nav .nav-link:focus,
+nav a.nav-link,
+nav a.nav-link:hover,
+nav a.nav-link:focus {
+  transform: none !important;
+  font-size: inherit !important;
+  transition: none !important;
+  box-shadow: none !important;
+  background: none !important;
+  text-decoration: none !important;
+}
+
+nav .nav-link:hover,
+nav a.nav-link:hover {
+  color: var(--primary) !important;
 }
