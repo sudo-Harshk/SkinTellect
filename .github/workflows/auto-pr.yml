@@ -16,19 +16,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Install GitHub CLI
-        uses: cli/cli@v2
-        with:
-          version: latest
-
       - name: Create Pull Request
         env:
-          GH_TOKEN: ${{ secrets.GH_PAT }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
         run: |
-          gh pr create \
-            --repo Nikhanze/Skintelite \
-            --base main \
-            --head ${{ github.repository_owner }}:main \
-            --title "🔁 Auto PR: Sync changes from fork" \
-            --body "This pull request was automatically created from your fork's \`main\` branch to the upstream \`main\`." \
-            --label "auto-sync"
+          curl -X POST \
+            -H "Authorization: token $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            https://api.github.com/repos/Nikhanze/Skintelite/pulls \
+            -d '{
+              "title": "🔁 Auto PR: Sync changes from fork",
+              "body": "This pull request was automatically created from your fork's `main` branch to the upstream `main`.",
+              "head": "'${{ github.repository_owner }}':main",
+              "base": "main",
+              "labels": ["auto-sync"]
+            }'
