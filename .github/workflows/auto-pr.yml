@@ -8,20 +8,32 @@ on:
 jobs:
   create-pull-request:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: write
 
     steps:
       - name: Checkout your forked repository
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Fetch all history for proper versioning
 
       - name: Create Pull Request to upstream
         uses: peter-evans/pull-request@v5
         with:
-          token: ${{ secrets.GH_PAT }}
-          base: main                             # Target branch on upstream
-          upstream: Nikhanze/Skintelite          # Original repo
-          head: sudo-Harshk:main                 # Your fork and branch
+          token: ${{ secrets.GH_PAT }}  # Make sure to add this secret in your repository settings
+          base: main                    # Target branch on upstream
+          upstream: Nikhanze/Skintelite # Original repository (update this to your upstream repo)
+          head: ${{ github.repository_owner }}:main  # Your fork and branch
           title: "🔁 Auto PR: Sync changes from fork"
           body: |
             This pull request was automatically created from your fork's `main` branch to the upstream `main`.
+            
+            Changes include:
+            - Latest updates from the fork
+            - Automated sync of changes
+            
+            Please review the changes before merging.
           draft: false
           labels: auto-sync
+          delete-branch: false
