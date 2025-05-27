@@ -1,0 +1,26 @@
+name: Auto PR to Upstream
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  create-pull-request:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout your forked repository
+        uses: actions/checkout@v3
+
+      - name: Create Pull Request to upstream
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GH_PAT }}
+          base: main  # upstream repo target branch
+          head: sudo-Harshk:main  # your fork + branch
+          title: "🔁 Auto PR: Sync changes from fork"
+          body: |
+            This pull request was automatically created from your fork's `main` branch to the upstream `main`.
+          draft: false
+          labels: auto-sync
