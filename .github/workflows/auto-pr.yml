@@ -19,7 +19,7 @@ jobs:
           fetch-depth: 0  # Fetch all history for proper versioning
 
       - name: Create Pull Request
-        uses: actions/create-pull-request@v5
+        uses: actions/create-pull-request@v4
         with:
           token: ${{ secrets.GH_PAT }}  # Make sure to add this secret in your repository settings
           base: main                    # Target branch on upstream
