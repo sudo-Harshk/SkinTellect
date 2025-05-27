@@ -1,0 +1,34 @@
+name: Auto PR to Upstream
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  create-pull-request:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install GitHub CLI
+        run: |
+          sudo apt update
+          sudo apt install -y gh
+
+      - name: Authenticate GitHub CLI
+        run: echo "${{ secrets.GH_PAT }}" | gh auth login --with-token
+
+      - name: Create Pull Request to Upstream
+        run: |
+          gh pr create \
+            --repo Nikhanze/Skintelite \
+            --base main \
+            --head ${{ github.repository_owner }}:main \
+            --title "🔁 Auto PR: Sync changes from fork" \
+            --body "This pull request was automatically created from your fork's \`main\` branch to the upstream \`main\`."
