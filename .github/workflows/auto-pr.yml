@@ -32,12 +32,12 @@ jobs:
             --base main \
             --head ${{ github.repository_owner }}:main \
             --json number \
-            --jq '.[].number' > pr_number.txt || true
+            --jq '.[0].number' > pr_number.txt || echo "" > pr_number.txt
 
-      - name: Create Pull Request if not exists
+      - name: Create or comment on PR
         run: |
           if [ ! -s pr_number.txt ]; then
-            echo "No existing PR found. Creating a new one..."
+            echo "🟢 No existing PR found. Creating a new one..."
             gh pr create \
               --repo Nikhanze/Skintelite \
               --base main \
@@ -45,5 +45,11 @@ jobs:
               --title "🔁 Auto PR: Sync changes from fork" \
               --body "This pull request was automatically created from your fork's \`main\` branch to the upstream \`main\`."
           else
-            echo "✅ PR already exists. Skipping creation."
+            PR_NUMBER=$(cat pr_number.txt)
+            echo "🟡 PR already exists: https://github.com/Nikhanze/Skintelite/pull/$PR_NUMBER"
+            echo "💬 Adding comment to PR about new commit(s)..."
+            gh pr comment $PR_NUMBER \
+              --repo Nikhanze/Skintelite \
+              --body "🔄 New commits were pushed to the fork. This PR will now reflect the latest changes."
           fi
+        continue-on-error: false
