@@ -1,0 +1,117 @@
+{% extends "layout.html" %}
+
+{% block title %}Our Team - SkinTellect{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="bg-gradient-to-r from-rose-500 to-pink-600 text-white py-20">
+    <div class="container mx-auto px-4 text-center">
+        <h1 class="text-5xl font-bold mb-6">Meet Our Expert Team</h1>
+        <p class="text-xl max-w-3xl mx-auto">Our dedicated team of skincare professionals is committed to providing you with the best care and expertise in dermatology and aesthetic treatments.</p>
+    </div>
+</div>
+
+<!-- Team Section -->
+<div class="container mx-auto px-4 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+        <!-- Team Member 1 -->
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-105 transition-all duration-300">
+            <div class="relative">
+                <div class="w-full h-80 overflow-hidden">
+                    <img src="{{ url_for('static', filename='images/team/doctor1.jpg') }}" alt="Dr. Sarah Johnson" class="w-full h-full object-cover">
+                </div>
+                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
+                    <h3 class="text-2xl font-bold text-white mb-1">Dr. Sarah Johnson</h3>
+                    <p class="text-rose-300 font-medium">Dermatologist</p>
+                </div>
+            </div>
+            <div class="p-8">
+                <p class="text-gray-600 mb-6">Specializing in cosmetic dermatology with over 10 years of experience in treating various skin conditions.</p>
+                <div class="flex justify-center space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-rose-500 transition-colors">
+                        <i class="fab fa-linkedin text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-rose-500 transition-colors">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Team Member 2 -->
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-105 transition-all duration-300">
+            <div class="relative">
+                <div class="w-full h-80 overflow-hidden">
+                    <img src="{{ url_for('static', filename='images/team/doctor2.jpg') }}" alt="Dr. Michael Chen" class="w-full h-full object-cover">
+                </div>
+                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
+                    <h3 class="text-2xl font-bold text-white mb-1">Dr. Michael Chen</h3>
+                    <p class="text-rose-300 font-medium">Skin Specialist</p>
+                </div>
+            </div>
+            <div class="p-8">
+                <p class="text-gray-600 mb-6">Expert in advanced skin treatments and laser therapy with a focus on personalized care.</p>
+                <div class="flex justify-center space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-rose-500 transition-colors">
+                        <i class="fab fa-linkedin text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-rose-500 transition-colors">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Team Member 3 -->
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-105 transition-all duration-300">
+            <div class="relative">
+                <div class="w-full h-80 overflow-hidden">
+                    <img src="{{ url_for('static', filename='images/team/doctor3.jpg') }}" alt="Dr. Emily Rodriguez" class="w-full h-full object-cover">
+                </div>
+                <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-6">
+                    <h3 class="text-2xl font-bold text-white mb-1">Dr. Emily Rodriguez</h3>
+                    <p class="text-rose-300 font-medium">Aesthetician</p>
+                </div>
+            </div>
+            <div class="p-8">
+                <p class="text-gray-600 mb-6">Specialized in skin rejuvenation and anti-aging treatments with a holistic approach to skincare.</p>
+                <div class="flex justify-center space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-rose-500 transition-colors">
+                        <i class="fab fa-linkedin text-xl"></i>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-rose-500 transition-colors">
+                        <i class="fab fa-twitter text-xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mission Section -->
+    <div class="mt-24 bg-gradient-to-r from-rose-50 to-pink-50 rounded-3xl p-12">
+        <div class="max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl font-bold mb-8 text-rose-600">Our Mission</h2>
+            <p class="text-gray-700 text-lg leading-relaxed">
+                At SkinTellect, we are dedicated to providing the highest quality skin care services using cutting-edge technology and personalized treatment plans. Our team of experienced professionals is committed to helping you achieve healthy, radiant skin through expert care and innovative solutions.
+            </p>
+            <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <i class="fas fa-heart text-3xl text-rose-500 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Patient Care</h3>
+                    <p class="text-gray-600">Putting your needs first with personalized attention and care.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <i class="fas fa-flask text-3xl text-rose-500 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Innovation</h3>
+                    <p class="text-gray-600">Using the latest technology and treatments for optimal results.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <i class="fas fa-certificate text-3xl text-rose-500 mb-4"></i>
+                    <h3 class="text-xl font-semibold mb-2">Excellence</h3>
+                    <p class="text-gray-600">Maintaining the highest standards in skincare and service.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

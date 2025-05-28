@@ -5,13 +5,36 @@
 {% block content %}
 <div class="landing-page">
     <!-- Hero Section -->
-    <section class="hero-section">
+    <section class="hero-section" style="background-image: url('{{ url_for('static', filename='assets/bg.webp') }}');">
+        <div class="overlay"></div>
         <div class="hero-content">
-            <h1>Welcome to SkinTellect</h1>
-            <p class="hero-subtitle">Your AI-Powered Skin Health Companion</p>
+            <h1 class="animated fade-in">Welcome to SkinTellect</h1>
+            <p class="hero-subtitle animated fade-in-delay">Your AI-Powered Skin Health Companion</p>
             <div class="hero-buttons">
-                <a href="/register" class="btn btn-primary">Get Started</a>
+                <a href="/register" class="btn btn-primary pulse">Get Started</a>
                 <a href="/predict" class="btn btn-secondary">Try Demo</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Console -->
+    <section class="stats-console">
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" data-count="10000">0</div>
+                <p>Happy Users</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-count="95">0</div>
+                <p>Accuracy Rate</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-count="5000">0</div>
+                <p>Analyses Done</p>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" data-count="50">0</div>
+                <p>Expert Doctors</p>
             </div>
         </div>
     </section>
@@ -23,17 +46,17 @@
             <div class="feature-card">
                 <i class="fas fa-robot"></i>
                 <h3>AI-Powered Analysis</h3>
-                <p>Get instant skin analysis using advanced AI technology</p>
+                <p>Scan. Detect. Understand your skin in seconds.</p>
             </div>
             <div class="feature-card">
                 <i class="fas fa-user-md"></i>
                 <h3>Expert Consultation</h3>
-                <p>Book appointments with experienced dermatologists</p>
+                <p>Connect with dermatologists for personalized care.</p>
             </div>
             <div class="feature-card">
                 <i class="fas fa-pills"></i>
-                <h3>Personalized Care</h3>
-                <p>Receive customized skincare recommendations</p>
+                <h3>Tailored Recommendations</h3>
+                <p>Get curated skincare product suggestions just for you.</p>
             </div>
         </div>
     </section>
@@ -50,26 +73,74 @@
             <div class="step">
                 <div class="step-number">2</div>
                 <h3>AI Analysis</h3>
-                <p>Our AI analyzes your skin condition</p>
+                <p>Our AI detects and analyzes skin conditions instantly</p>
             </div>
             <div class="step">
                 <div class="step-number">3</div>
                 <h3>Get Results</h3>
-                <p>Receive detailed analysis and recommendations</p>
+                <p>Receive expert suggestions and treatment insights</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" style="background-image: url('{{ url_for('static', filename='assets/bg.webp') }}');">
+        <div class="overlay"></div>
+        <h2>What Our Users Say</h2>
+        <div class="testimonials-container">
+            <div class="testimonials-grid">
+                <div class="testimonials-images">
+                    <div class="testimonial-image active" data-index="0">
+                        <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=3560&auto=format&fit=crop" alt="Sarah Chen">
+                    </div>
+                    <div class="testimonial-image" data-index="1">
+                        <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?q=80&w=3540&auto=format&fit=crop" alt="Michael Rodriguez">
+                    </div>
+                    <div class="testimonial-image" data-index="2">
+                        <img src="https://images.unsplash.com/photo-1623582854588-d60de57fa33f?q=80&w=3540&auto=format&fit=crop" alt="Emily Watson">
+                    </div>
+                </div>
+                <div class="testimonials-content">
+                    <div class="testimonial-content active" data-index="0">
+                        <h3>Sarah Chen</h3>
+                        <p class="designation">Regular User</p>
+                        <p class="quote">SkinTellect's AI analysis was incredibly accurate. The recommendations helped me find the right products for my skin type.</p>
+                    </div>
+                    <div class="testimonial-content" data-index="1">
+                        <h3>Michael Rodriguez</h3>
+                        <p class="designation">Premium Member</p>
+                        <p class="quote">The expert consultation feature is amazing. I got professional advice without leaving my home.</p>
+                    </div>
+                    <div class="testimonial-content" data-index="2">
+                        <h3>Emily Watson</h3>
+                        <p class="designation">Verified User</p>
+                        <p class="quote">Finally found a solution for my persistent skin issues. The personalized recommendations are spot on!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-controls">
+                <button class="prev-btn"><i class="fas fa-arrow-left"></i></button>
+                <button class="next-btn"><i class="fas fa-arrow-right"></i></button>
             </div>
         </div>
     </section>
 </div>
 
+<!-- Styles -->
 <style>
+:root {
+    --bg-image: url("{{ url_for('static', filename='assets/bg.webp') }}");
+}
+
 .landing-page {
     min-height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
 }
 
 .hero-section {
-    background: linear-gradient(135deg, var(--primary-light), rgba(193, 124, 135, 0.4)),
-                url('../assets/login-img.jpg') center/cover no-repeat;
-    min-height: 80vh;
+    position: relative;
+    background: var(--bg-image) center/cover no-repeat;
+    min-height: 85vh;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -77,44 +148,124 @@
     padding: 2rem;
 }
 
+.hero-section .overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.8), rgba(219, 39, 119, 0.8));
+    z-index: 1;
+}
+
 .hero-content {
     max-width: 800px;
     color: white;
+    position: relative;
+    z-index: 2;
 }
 
 .hero-content h1 {
     font-size: 4rem;
     font-weight: 700;
     margin-bottom: 1rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    animation: fadeInUp 1s ease-out;
 }
 
 .hero-subtitle {
     font-size: 1.5rem;
     margin-bottom: 2rem;
     opacity: 0.9;
+    animation: fadeInUp 1.2s ease-out;
 }
 
 .hero-buttons {
     display: flex;
     gap: 1rem;
     justify-content: center;
+    animation: fadeInUp 1.4s ease-out;
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-lg);
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(236, 72, 153, 0.4);
 }
 
 .btn-secondary {
-    background: white;
-    color: var(--primary);
-    border: 2px solid var(--primary);
+    background: transparent;
+    color: white;
+    border: 2px solid white;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--radius-lg);
+    font-weight: 600;
+    transition: all 0.3s ease;
 }
 
 .btn-secondary:hover {
-    background: var(--primary);
-    color: white;
+    background: white;
+    color: var(--primary);
+    transform: scale(1.05);
 }
 
+.pulse {
+    animation: pulseAnim 2s infinite;
+}
+
+@keyframes pulseAnim {
+    0% { box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.4); }
+    70% { box-shadow: 0 0 0 20px rgba(236, 72, 153, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(236, 72, 153, 0); }
+}
+
+/* Stats Console */
+.stats-console {
+    background: white;
+    padding: 4rem 2rem;
+    margin-top: -4rem;
+    position: relative;
+    z-index: 3;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.stat-card {
+    text-align: center;
+    padding: 2rem;
+    background: var(--bg-light);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 0.5rem;
+}
+
+/* Features Section */
 .features-section {
     padding: 5rem 2rem;
-    background: white;
+    background: var(--bg-light);
     text-align: center;
 }
 
@@ -122,6 +273,7 @@
     font-size: 2.5rem;
     margin-bottom: 3rem;
     color: var(--text-primary);
+    animation: fadeInUp 0.8s ease-out;
 }
 
 .features-grid {
@@ -135,8 +287,10 @@
 .feature-card {
     padding: 2rem;
     border-radius: var(--radius-lg);
-    background: var(--bg-light);
-    transition: var(--transition);
+    background: white;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-sm);
+    animation: fadeInUp 1s ease-out;
 }
 
 .feature-card:hover {
@@ -156,9 +310,10 @@
     color: var(--text-primary);
 }
 
+/* How It Works Section */
 .how-it-works {
     padding: 5rem 2rem;
-    background: var(--bg-light);
+    background: white;
     text-align: center;
 }
 
@@ -166,6 +321,7 @@
     font-size: 2.5rem;
     margin-bottom: 3rem;
     color: var(--text-primary);
+    animation: fadeInUp 0.8s ease-out;
 }
 
 .steps-container {
@@ -178,7 +334,16 @@
 
 .step {
     padding: 2rem;
-    position: relative;
+    background: var(--bg-light);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+    animation: fadeInUp 1s ease-out;
+}
+
+.step:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
 }
 
 .step-number {
@@ -195,12 +360,162 @@
     margin: 0 auto 1rem;
 }
 
-.step h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    color: var(--text-primary);
+/* Testimonials Section */
+.testimonials {
+    position: relative;
+    padding: 5rem 2rem;
+    background: var(--bg-image) center/cover no-repeat fixed;
+    text-align: center;
+    color: white;
 }
 
+.testimonials .overlay {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.9), rgba(219, 39, 119, 0.9));
+    z-index: 1;
+}
+
+.testimonials h2 {
+    position: relative;
+    z-index: 2;
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: white;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+.testimonials-container {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.testimonials-images {
+    position: relative;
+    height: 400px;
+}
+
+.testimonial-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transform: scale(0.9) rotate(var(--rotate));
+    transition: all 0.4s ease-in-out;
+    border-radius: 1.5rem;
+    overflow: hidden;
+}
+
+.testimonial-image.active {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+    z-index: 2;
+}
+
+.testimonial-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.testimonials-content {
+    position: relative;
+    height: 300px;
+}
+
+.testimonial-content {
+    position: absolute;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.4s ease-in-out;
+}
+
+.testimonial-content.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.testimonial-content h3 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+}
+
+.testimonial-content .designation {
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 1.5rem;
+}
+
+.testimonial-content .quote {
+    font-size: 1.2rem;
+    line-height: 1.6;
+}
+
+.testimonial-controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.testimonial-controls button {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.testimonial-controls button:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+@media (max-width: 768px) {
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .testimonials-images {
+        height: 300px;
+    }
+
+    .testimonials-content {
+        height: auto;
+    }
+
+    .testimonial-content {
+        position: relative;
+    }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
     .hero-content h1 {
         font-size: 3rem;
@@ -215,9 +530,120 @@
     }
     
     .features-grid,
-    .steps-container {
+    .steps-container,
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-grid {
         grid-template-columns: 1fr;
     }
 }
 </style>
-{% endblock %} 
+
+<!-- Scripts -->
+<script>
+// Animate stats numbers
+function animateStats() {
+    const stats = document.querySelectorAll('.stat-number');
+    
+    stats.forEach(stat => {
+        const target = parseInt(stat.getAttribute('data-count'));
+        const duration = 2000; // 2 seconds
+        const step = target / (duration / 16); // 60fps
+        let current = 0;
+        
+        const updateCount = () => {
+            current += step;
+            if (current < target) {
+                stat.textContent = Math.floor(current);
+                requestAnimationFrame(updateCount);
+            } else {
+                stat.textContent = target;
+            }
+        };
+        
+        updateCount();
+    });
+}
+
+// Intersection Observer for animations
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('animate');
+            if (entry.target.classList.contains('stats-console')) {
+                animateStats();
+            }
+        }
+    });
+}, {
+    threshold: 0.1
+});
+
+// Observe elements
+document.querySelectorAll('.features-section, .how-it-works, .testimonials, .stats-console').forEach(section => {
+    observer.observe(section);
+});
+
+// Testimonials Animation
+document.addEventListener('DOMContentLoaded', function() {
+    const testimonials = document.querySelectorAll('.testimonial-content');
+    const images = document.querySelectorAll('.testimonial-image');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+    let currentIndex = 0;
+
+    function updateTestimonials(index) {
+        testimonials.forEach((testimonial, i) => {
+            testimonial.classList.toggle('active', i === index);
+        });
+        images.forEach((image, i) => {
+            image.classList.toggle('active', i === index);
+            image.style.setProperty('--rotate', `${Math.random() * 20 - 10}deg`);
+        });
+    }
+
+    function nextTestimonial() {
+        currentIndex = (currentIndex + 1) % testimonials.length;
+        updateTestimonials(currentIndex);
+    }
+
+    function prevTestimonial() {
+        currentIndex = (currentIndex - 1 + testimonials.length) % testimonials.length;
+        updateTestimonials(currentIndex);
+    }
+
+    // Event listeners
+    nextBtn.addEventListener('click', nextTestimonial);
+    prevBtn.addEventListener('click', prevTestimonial);
+
+    // Auto-advance testimonials
+    setInterval(nextTestimonial, 5000);
+
+    // Initialize first testimonial
+    updateTestimonials(0);
+});
+
+// Footer hover effects
+document.addEventListener('DOMContentLoaded', function() {
+    const footerLinks = document.querySelectorAll('.footer a');
+    
+    footerLinks.forEach(link => {
+        link.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-2px)';
+        });
+        
+        link.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+});
+</script>
+{% endblock %}

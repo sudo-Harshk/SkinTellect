@@ -164,6 +164,10 @@ def recommend_products_based_on_classes(classes):
 def landing():
     return render_template('landing.html')
 
+@app.route('/team', methods=['GET'])
+def team():
+    return render_template('team.html')
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -716,7 +720,7 @@ def delete_user_request():
         return jsonify(success=False, error=str(e))
 
 @app.route("/userappointment")
-def userappoint():
+def userappointment():
     if 'username' not in session:
         return redirect('/')
     
