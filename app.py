@@ -160,7 +160,11 @@ def recommend_products_based_on_classes(classes):
             recommendations.append((skin_condition, fallback_product))
     return recommendations
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/', methods=['GET'])
+def landing():
+    return render_template('landing.html')
+
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         login_id = request.form['login_id']

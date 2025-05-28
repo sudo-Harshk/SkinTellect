@@ -6,15 +6,29 @@ on:
       - main
 
 jobs:
-  create-pull-request:
+  auto-pr-to-upstream:
     runs-on: ubuntu-latest
     permissions:
-      pull-requests: write
       contents: write
+      pull-requests: write
 
     steps:
-      - name: Checkout repository
+      - name: Checkout fork repo
         uses: actions/checkout@v3
+
+      - name: Set up Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Generate temp branch name
+        id: vars
+        run: echo "branch=auto-sync-$(date +%s)" >> $GITHUB_OUTPUT
+
+      - name: Create temp branch and push
+        run: |
+          git checkout -b ${{ steps.vars.outputs.branch }}
+          git push origin ${{ steps.vars.outputs.branch }}
 
       - name: Install GitHub CLI
         run: |
@@ -24,11 +38,11 @@ jobs:
       - name: Authenticate GitHub CLI
         run: echo "${{ secrets.GH_PAT }}" | gh auth login --with-token
 
-      - name: Create Pull Request to Upstream
+      - name: Create pull request to upstream
         run: |
           gh pr create \
             --repo Nikhanze/Skintelite \
             --base main \
-            --head ${{ github.repository_owner }}:main \
-            --title "🔁 Auto PR: Sync changes from fork" \
-            --body "This pull request was automatically created from your fork's \`main\` branch to the upstream \`main\`."
+            --head ${{ github.repository_owner }}:${{ steps.vars.outputs.branch }} \
+            --title "🔁 Auto PR: Sync from fork at $(date '+%Y-%m-%d %H:%M:%S')" \
+            --body "Automated sync PR from fork branch \`${{ steps.vars.outputs.branch }}\` to upstream."
