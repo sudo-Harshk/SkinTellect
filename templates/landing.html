@@ -5,7 +5,7 @@
 {% block content %}
 <div class="landing-page">
     <!-- Hero Section -->
-    <section class="hero-section">
+    <section class="hero-section" style="background-image: url('{{ url_for('static', filename='assets/bg.webp') }}');">
         <div class="overlay"></div>
         <div class="hero-content">
             <h1 class="animated fade-in">Welcome to SkinTellect</h1>
@@ -84,7 +84,7 @@
     </section>
 
     <!-- Testimonials Section -->
-    <section class="testimonials">
+    <section class="testimonials" style="background-image: url('{{ url_for('static', filename='assets/bg.webp') }}');">
         <div class="overlay"></div>
         <h2>What Our Users Say</h2>
         <div class="testimonials-container">
@@ -124,71 +124,14 @@
             </div>
         </div>
     </section>
-
-    <!-- Footer Section -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-brand">
-                    <div class="brand-logo">
-                        <a href="/">
-                            <img src="{{ url_for('static', filename='assets/logo.png') }}" alt="SkinTellect" title="SkinTellect" onerror="this.src='https://ui-avatars.com/api/?name=ST&background=ec4899&color=fff'">
-                        </a>
-                        <h2>SkinTellect</h2>
-                    </div>
-                    <p class="brand-description">
-                        Your AI-Powered Skin Health Companion. Get instant analysis, expert consultation, and personalized skincare recommendations.
-                    </p>
-                    <ul class="social-links">
-                        <li><a href="#" aria-label="Instagram">📸</a></li>
-                        <li><a href="#" aria-label="Facebook">👍</a></li>
-                        <li><a href="#" aria-label="Twitter">🐦</a></li>
-                        <li><a href="#" aria-label="LinkedIn">💼</a></li>
-                    </ul>
-                </div>
-                <div class="footer-links">
-                    <div class="link-section">
-                        <h3>Product</h3>
-                        <ul>
-                            <li><a href="/predict">Skin Analysis</a></li>
-                            <li><a href="/pricing">Pricing</a></li>
-                            <li><a href="/features">Features</a></li>
-                            <li><a href="/demo">Try Demo</a></li>
-                        </ul>
-                    </div>
-                    <div class="link-section">
-                        <h3>Company</h3>
-                        <ul>
-                            <li><a href="/about">About Us</a></li>
-                            <li><a href="/team">Our Team</a></li>
-                            <li><a href="/blog">Blog</a></li>
-                            <li><a href="/careers">Careers</a></li>
-                        </ul>
-                    </div>
-                    <div class="link-section">
-                        <h3>Resources</h3>
-                        <ul>
-                            <li><a href="/help">Help Center</a></li>
-                            <li><a href="/contact">Contact Us</a></li>
-                            <li><a href="/privacy">Privacy Policy</a></li>
-                            <li><a href="/terms">Terms of Service</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p class="copyright">© 2024 SkinTellect. All rights reserved.</p>
-                <ul class="legal-links">
-                    <li><a href="/terms">Terms and Conditions</a></li>
-                    <li><a href="/privacy">Privacy Policy</a></li>
-                </ul>
-            </div>
-        </div>
-    </footer>
 </div>
 
 <!-- Styles -->
 <style>
+:root {
+    --bg-image: url("{{ url_for('static', filename='assets/bg.webp') }}");
+}
+
 .landing-page {
     min-height: 100vh;
     font-family: 'Segoe UI', sans-serif;
@@ -196,7 +139,7 @@
 
 .hero-section {
     position: relative;
-    background: url('../assets/bg.webp') center/cover no-repeat;
+    background: var(--bg-image) center/cover no-repeat;
     min-height: 85vh;
     display: flex;
     align-items: center;
@@ -421,7 +364,7 @@
 .testimonials {
     position: relative;
     padding: 5rem 2rem;
-    background: url('../assets/bg.webp') center/cover no-repeat fixed;
+    background: var(--bg-image) center/cover no-repeat fixed;
     text-align: center;
     color: white;
 }
@@ -600,167 +543,6 @@
 @media (max-width: 480px) {
     .stats-grid {
         grid-template-columns: 1fr;
-    }
-}
-
-/* Footer Styles */
-.footer {
-    background: #1a1a1a;
-    color: white;
-    padding: 4rem 2rem;
-    margin-top: 4rem;
-}
-
-.footer .container {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-.footer-content {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
-    margin-bottom: 2rem;
-}
-
-@media (min-width: 1024px) {
-    .footer-content {
-        flex-direction: row;
-        justify-content: space-between;
-    }
-}
-
-.footer-brand {
-    flex: 1;
-    max-width: 400px;
-}
-
-.brand-logo {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
-}
-
-.brand-logo img {
-    height: 2rem;
-    width: auto;
-}
-
-.brand-logo h2 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: white;
-}
-
-.brand-description {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 0.875rem;
-    margin-bottom: 1.5rem;
-    line-height: 1.5;
-}
-
-.social-links {
-    display: flex;
-    gap: 1.5rem;
-    list-style: none;
-    padding: 0;
-}
-
-.social-links a {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 1.25rem;
-    transition: all 0.3s ease;
-    text-decoration: none;
-}
-
-.social-links a:hover {
-    color: #ec4899;
-    transform: translateY(-2px);
-}
-
-.footer-links {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 2rem;
-    flex: 2;
-}
-
-.link-section h3 {
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    color: white;
-}
-
-.link-section ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.link-section li {
-    margin-bottom: 0.75rem;
-}
-
-.link-section a {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 0.875rem;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.link-section a:hover {
-    color: #ec4899;
-}
-
-.footer-bottom {
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    padding-top: 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    align-items: center;
-    text-align: center;
-}
-
-@media (min-width: 768px) {
-    .footer-bottom {
-        flex-direction: row;
-        justify-content: space-between;
-        text-align: left;
-    }
-}
-
-.copyright {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 0.75rem;
-}
-
-.legal-links {
-    display: flex;
-    gap: 1.5rem;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.legal-links a {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 0.75rem;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.legal-links a:hover {
-    color: #ec4899;
-}
-
-@media (max-width: 768px) {
-    .legal-links {
-        flex-direction: column;
-        gap: 0.5rem;
-        align-items: center;
     }
 }
 </style>

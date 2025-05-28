@@ -69,7 +69,7 @@
 </head>
 <body>
     <div class="h-[100vh] w-[100vw] relative flex items-center justify-center">
-        <img src="../static/assets/bg.webp" alt="" class="fixed top-0 left-0 absolute h-[100vh] w-[100vw] brightness-[90%] z-1">
+        <img src="{{ url_for('static', filename='assets/bg.webp') }}" alt="" class="fixed top-0 left-0 absolute h-[100vh] w-[100vw] brightness-[90%] z-1">
         <div class="z-50 relative bg-[rgba(255,255,255,0.28)] rounded-xl p-7 backdrop-blur-md w-fit h-[90vh] overflow-y-scroll ">
             <h2 class="font-bold text-3xl mb-2">Skin Health Survey</h2>
             <form action="/survey" method="POST" class="flex flex-col gap-1">
