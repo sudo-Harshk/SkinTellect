@@ -21,9 +21,16 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Generate temp branch name
+      - name: Generate temp branch name with date and random string
         id: vars
-        run: echo "branch=auto-sync-$(date +%s)" >> $GITHUB_OUTPUT
+        run: |
+          # Get the current date (without time)
+          DATE=$(date '+%Y-%m-%d')
+          # Generate a random string (UUID)
+          RANDOM_STRING=$(uuidgen | cut -d'-' -f1)  # Get the first part of UUID
+          echo "branch=auto-sync-${DATE}-${RANDOM_STRING}" >> $GITHUB_OUTPUT
+          echo "date=${DATE}" >> $GITHUB_OUTPUT
+          echo "random_string=${RANDOM_STRING}" >> $GITHUB_OUTPUT
 
       - name: Create temp branch and push
         run: |
@@ -44,5 +51,5 @@ jobs:
             --repo Nikhanze/Skintelite \
             --base main \
             --head ${{ github.repository_owner }}:${{ steps.vars.outputs.branch }} \
-            --title "🔁 Auto PR: Sync from fork at $(date '+%Y-%m-%d %H:%M:%S')" \
+            --title "🔁 Auto PR: Sync from fork on ${{ steps.vars.outputs.date }}" \
             --body "Automated sync PR from fork branch \`${{ steps.vars.outputs.branch }}\` to upstream."
