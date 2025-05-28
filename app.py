@@ -716,7 +716,7 @@ def delete_user_request():
         return jsonify(success=False, error=str(e))
 
 @app.route("/userappointment")
-def userappoint():
+def userappointment():
     if 'username' not in session:
         return redirect('/')
     
