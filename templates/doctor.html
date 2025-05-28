@@ -5,7 +5,7 @@
 {% block content %}
 <div class="min-h-screen w-full relative bg-gray-50">
   <!-- Background Image -->
-  <img src="../static/assets/bg.webp" alt="" class="fixed top-0 left-0 w-full h-full object-cover brightness-[90%] z-0">
+  <img src="{{ url_for('static', filename='assets/bg.webp') }}" alt="" class="fixed top-0 left-0 w-full h-full object-cover brightness-[90%] z-0">
 
   <!-- Doctor Navbar -->
   <nav class="fixed top-0 left-0 w-full z-50 bg-white shadow-md flex justify-between items-center px-6 h-[10vh]">

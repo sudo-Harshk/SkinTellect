@@ -5,7 +5,7 @@
 {% block content %}
 <div class="min-h-screen w-full relative flex flex-col items-center justify-center">
   <!-- Background Image -->
-  <img src="../static/assets/bg.webp" alt="" class="absolute top-0 left-0 w-full h-full object-cover brightness-[90%] z-0">
+  <img src="{{ url_for('static', filename='assets/bg.webp') }}" alt="" class="absolute top-0 left-0 w-full h-full object-cover brightness-[90%] z-0">
 
   <div class="glass-card p-8 rounded-2xl max-w-2xl w-full mx-4 text-center transition-all">
     <!-- Success Icon -->

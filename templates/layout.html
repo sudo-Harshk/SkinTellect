@@ -264,6 +264,45 @@
     {% block content %}{% endblock %}
   </main>
 
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div>
+          <h3 class="text-xl font-bold mb-4">SkinTellect</h3>
+          <p class="text-gray-400">Your trusted partner in skin care and beauty solutions.</p>
+        </div>
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+          <ul class="space-y-2">
+            <li><a href="/" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+            <li><a href="/team" class="text-gray-400 hover:text-white transition-colors">Our Team</a></li>
+            <li><a href="/bookappointment" class="text-gray-400 hover:text-white transition-colors">Book Appointment</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Services</h4>
+          <ul class="space-y-2">
+            <li><a href="/predict" class="text-gray-400 hover:text-white transition-colors">Skin Analysis</a></li>
+            <li><a href="/doctor" class="text-gray-400 hover:text-white transition-colors">Find a Doctor</a></li>
+            <li><a href="/survey" class="text-gray-400 hover:text-white transition-colors">Skin Survey</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-lg font-semibold mb-4">Contact</h4>
+          <ul class="space-y-2">
+            <li class="text-gray-400">Email: info@skintellect.com</li>
+            <li class="text-gray-400">Phone: (555) 123-4567</li>
+            <li class="text-gray-400">Address: 123 Skin Care St, Beauty City</li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+        <p>&copy; 2024 SkinTellect. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
   <script>
     function toggleMenu() {
       const navLinks = document.querySelector('.nav-links');
