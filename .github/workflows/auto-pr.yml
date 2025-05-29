@@ -24,10 +24,8 @@ jobs:
       - name: Generate temp branch name with date and random string
         id: vars
         run: |
-          # Get the current date (without time)
           DATE=$(date '+%Y-%m-%d')
-          # Generate a random string (UUID)
-          RANDOM_STRING=$(uuidgen | cut -d'-' -f1)  # Get the first part of UUID
+          RANDOM_STRING=$(uuidgen | cut -d'-' -f1)
           echo "branch=auto-sync-${DATE}-${RANDOM_STRING}" >> $GITHUB_OUTPUT
           echo "date=${DATE}" >> $GITHUB_OUTPUT
           echo "random_string=${RANDOM_STRING}" >> $GITHUB_OUTPUT
@@ -45,7 +43,15 @@ jobs:
       - name: Authenticate GitHub CLI
         run: echo "${{ secrets.GH_PAT }}" | gh auth login --with-token
 
+      - name: Check for changes with upstream
+        id: check_diff
+        run: |
+          git remote add upstream https://github.com/Nikhanze/Skintelite.git
+          git fetch upstream main
+          git diff --quiet upstream/main || echo "CHANGES_PRESENT=true" >> $GITHUB_ENV
+
       - name: Create pull request to upstream
+        if: env.CHANGES_PRESENT == 'true'
         run: |
           gh pr create \
             --repo Nikhanze/Skintelite \
