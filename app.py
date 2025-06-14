@@ -165,7 +165,7 @@ def recommend_products_based_on_classes(classes):
 
 @app.route('/', methods=['GET'])
 def landing():
-    return render_template('landing.html')
+    return render_template('index.html')
 
 @app.route('/team', methods=['GET'])
 def team():
