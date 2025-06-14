@@ -13,6 +13,23 @@
             <p class="text-red-600 text-sm mb-4">{{ error }}</p>
         {% endif %}
 
+        <!-- Username suggestions -->
+        {% if username_suggestions %}
+        <div class="username-suggestions mb-4">
+            <p class="text-sm text-gray-600 mb-2">Try these available usernames:</p>
+            <div class="suggestions-grid">
+                {% for suggestion in username_suggestions %}
+                <button type="button" 
+                        class="suggestion-btn" 
+                        onclick="useSuggestion('{{ suggestion }}')"
+                        title="Click to use this username">
+                    {{ suggestion }}
+                </button>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
         <div class="saperator-box">
             <div></div>
             <span>OR</span>
@@ -20,16 +37,32 @@
         </div>
 
         <div class="form-component">
-            <input type="text" name="username" placeholder="Enter Your Username" required>
+            <input type="text" 
+                   name="username" 
+                   id="username"
+                   placeholder="Enter Your Username" 
+                   value="{{ form_data.username if form_data else '' }}"
+                   required>
         </div>
         <div class="form-component">
-            <input type="number" name="age" placeholder="Enter Your Age" required>
+            <input type="number" 
+                   name="age" 
+                   placeholder="Enter Your Age" 
+                   value="{{ form_data.age if form_data else '' }}"
+                   required>
         </div>
         <div class="form-component">
-            <input type="email" name="email" placeholder="Enter Your Email" required>
+            <input type="email" 
+                   name="email" 
+                   placeholder="Enter Your Email" 
+                   value="{{ form_data.email if form_data else '' }}"
+                   required>
         </div>
         <div class="form-component">
-            <input type="password" name="password" placeholder="Enter Your Password" required>
+            <input type="password" 
+                   name="password" 
+                   placeholder="Enter Your Password" 
+                   required>
         </div>
 
         <button type="submit" class="btn btn-primary">Sign Up</button>
@@ -40,4 +73,56 @@
         <h1>Skintellect!</h1>
     </div>
 </div>
+
+<style>
+    .username-suggestions {
+        background: #f8f9fa;
+        border-radius: 8px;
+        padding: 1rem;
+        border: 1px solid #e9ecef;
+    }
+
+    .suggestions-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+    }
+
+    .suggestion-btn {
+        background: white;
+        border: 1px solid #dee2e6;
+        border-radius: 6px;
+        padding: 0.5rem;
+        font-size: 0.875rem;
+        color: #495057;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        text-align: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .suggestion-btn:hover {
+        background: #e9ecef;
+        border-color: #ced4da;
+        transform: translateY(-1px);
+    }
+
+    .suggestion-btn:active {
+        transform: translateY(0);
+    }
+</style>
+
+<script>
+    function useSuggestion(username) {
+        document.getElementById('username').value = username;
+        // Optional: Add a visual feedback
+        const btn = event.target;
+        btn.style.background = '#e9ecef';
+        setTimeout(() => {
+            btn.style.background = 'white';
+        }, 200);
+    }
+</script>
 {% endblock %}
