@@ -21,6 +21,9 @@ import random
 import re
 import unicodedata
 from twilio.rest import Client
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 # Load environment variables
 load_dotenv()
@@ -263,6 +266,85 @@ def predict():
         return render_template('face_analysis.html', data=prediction_data, message=request.args.get('message'))
     return render_template('face_analysis.html', data=[])
 
+def send_welcome_email(email, username):
+    # Create message
+    msg = MIMEMultipart()
+    msg['From'] = f"SkinTellect <{app.config['MAIL_USERNAME']}>"
+    msg['To'] = email
+    msg['Subject'] = "Welcome to SkinTellect! 🎉"
+    
+    # Email body
+    body = f"""
+    <html>
+        <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
+            <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+                <h2 style="color: #ec4899;">Welcome to SkinTellect! 🎉</h2>
+                <p>Dear {username},</p>
+                <p>Thank you for joining SkinTellect! Your account has been successfully created.</p>
+                <p>We're excited to help you on your skin care journey. With SkinTellect, you can:</p>
+                <ul>
+                    <li>Get personalized skin analysis</li>
+                    <li>Book appointments with skin care experts</li>
+                    <li>Track your skin health progress</li>
+                    <li>Receive customized skin care recommendations</li>
+                </ul>
+                <p>If you have any questions, feel free to reach out to our support team.</p>
+                <p>Best regards,<br>The SkinTellect Team</p>
+            </div>
+        </body>
+    </html>
+    """
+    
+    msg.attach(MIMEText(body, 'html'))
+    
+    try:
+        # Create SMTP session
+        server = smtplib.SMTP(app.config['MAIL_SERVER'], app.config['MAIL_PORT'])
+        if app.config['MAIL_USE_TLS']:
+            server.starttls()
+        server.login(app.config['MAIL_USERNAME'], app.config['MAIL_PASSWORD'])
+        
+        # Send email
+        server.send_message(msg)
+        server.quit()
+        return True
+    except Exception as e:
+        print(f"Error sending email: {e}")
+        return False
+
+def generate_username_suggestions(base_username):
+    """Generate 4 available username suggestions based on the input username."""
+    suggestions = []
+    base = base_username.lower()
+    
+    # Try different variations
+    variations = [
+        base,                    # Original
+        f"{base}123",           # Add numbers
+        f"{base}_user",         # Add suffix
+        f"the_{base}",          # Add prefix
+        f"{base}2024",          # Add year
+        f"{base}_official",     # Add official
+        f"real_{base}",         # Add real
+        f"{base}_pro",          # Add pro
+        f"{base}_official",     # Add official
+        f"{base}_verified"      # Add verified
+    ]
+    
+    # Check each variation until we have 4 available usernames
+    for variation in variations:
+        if not get_user(variation) and len(suggestions) < 4:
+            suggestions.append(variation)
+    
+    # If we still need more suggestions, add random numbers
+    if len(suggestions) < 4:
+        for i in range(1000, 9999):
+            new_username = f"{base}{i}"
+            if not get_user(new_username) and len(suggestions) < 4:
+                suggestions.append(new_username)
+    
+    return suggestions
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -273,14 +355,27 @@ def register():
         hashed_password = generate_password_hash(password)
 
         if get_user(username):
-            return render_template('register.html', error="⚠️ Username already exists. Please choose a different one.")
+            # Generate username suggestions
+            suggestions = generate_username_suggestions(username)
+            return render_template('register.html', 
+                                error="⚠️ Username already exists. Please choose a different one.",
+                                username_suggestions=suggestions,
+                                form_data=request.form)  # Pass form data to repopulate fields
         
         if get_user_by_email(email):
-            return render_template('register.html', error="⚠️ Email already registered. Please log in or reset your password.")
+            return render_template('register.html', 
+                                error="⚠️ Email already registered. Please log in or reset your password.",
+                                form_data=request.form)  # Pass form data to repopulate fields
 
         insert_user(username, email, hashed_password)
+        
+        # Send welcome email
+        send_welcome_email(email, username)
+        
+        # Set session and flash success message
         session['name'] = username 
         session['age'] = age
+        flash('Registration successful! Welcome to SkinTellect! 🎉', 'success')
         return redirect('/')
     return render_template('register.html')
 
