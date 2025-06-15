@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block title %}Contact Us - Skintellect{% endblock %}
+
+{% block content %}
+  <div class="max-w-3xl mx-auto py-10">
+    <h1 class="text-3xl font-bold text-rose-500 mb-6">Get in Touch</h1>
+    <form method="POST" action="/contact" class="space-y-4">
+      <input type="text" name="name" placeholder="Your Name" class="w-full border p-3 rounded" required>
+      <input type="email" name="email" placeholder="Your Email" class="w-full border p-3 rounded" required>
+      <textarea name="message" placeholder="Your Message" rows="5" class="w-full border p-3 rounded" required></textarea>
+      <button type="submit" class="bg-rose-500 text-white px-5 py-2 rounded hover:bg-rose-600">Send Message</button>
+    </form>
+  </div>
+{% endblock %}
