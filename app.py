@@ -182,6 +182,10 @@ def contact():
 def blog():
     return render_template('blog.html')
 
+@app.route('/careers')
+def careers():
+    return render_template('careers.html')
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
