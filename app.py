@@ -178,6 +178,10 @@ def contact():
         return redirect('/contact')
     return render_template('contact.html')
 
+@app.route('/blog')
+def blog():
+    return render_template('blog.html')
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
