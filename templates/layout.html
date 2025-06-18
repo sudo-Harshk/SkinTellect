@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{% block title %}Skintellect{% endblock %}</title>
 
+  <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      AOS.init({ once: true });
+    });
+  </script>
+
   <!-- Simplified CSS imports -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -311,6 +319,26 @@
         gsap.set(underline, { width: 0 });
       }
     });
+     window.addEventListener('DOMContentLoaded', () => {
+    gsap.utils.toArray('[data-animate="fade-up"]').forEach((el, i) => {
+      gsap.from(el, {
+        opacity: 0,
+        y: 40,
+        duration: 0.6,
+        ease: 'power2.out',
+        delay: i * 0.1
+      });
+    });
+
+    gsap.utils.toArray('[data-animate="fade-in"]').forEach((el, i) => {
+      gsap.from(el, {
+        opacity: 0,
+        duration: 0.6,
+        ease: 'power2.out',
+        delay: 0.4 + i * 0.2
+      });
+    });
+  });
   </script>
 </body>
 </html>
