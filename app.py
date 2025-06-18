@@ -24,6 +24,7 @@ from twilio.rest import Client
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from datetime import datetime
 
 # Load environment variables
 load_dotenv()
@@ -162,6 +163,10 @@ def recommend_products_based_on_classes(classes):
             }]
             recommendations.append((skin_condition, fallback_product))
     return recommendations
+
+@app.context_processor
+def inject_now():
+    return {'now': datetime.utcnow}
 
 @app.route('/', methods=['GET'])
 def landing():
