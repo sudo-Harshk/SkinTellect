@@ -1,0 +1,101 @@
+{% extends "layout.html" %}
+
+{% block title %}Privacy Policy - SkinTellect{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-rose-50 via-yellow-50 to-blue-50 py-16 px-6">
+  <section class="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-8" data-aos="fade-up">
+    <h1 class="text-3xl font-bold text-rose-500 mb-6">Privacy Policy</h1>
+    <p class="text-gray-700 mb-4">
+      At <strong>SkinTellect</strong>, your privacy is important to us. This policy outlines how we collect, use, and protect your data when you use our AI-powered skincare services.
+    </p>
+
+    <h2 class="text-2xl font-semibold text-gray-900 mt-8 mb-3">1. Information We Collect</h2>
+    <ul class="list-disc list-inside text-gray-700 space-y-2">
+      <li>Profile data (name, email, account details)</li>
+      <li>Images and analysis data submitted by users</li>
+      <li>Appointment and activity logs</li>
+    </ul>
+
+    <h2 class="text-2xl font-semibold text-gray-900 mt-8 mb-3">2. How We Use Your Data</h2>
+    <ul class="list-disc list-inside text-gray-700 space-y-2">
+      <li>To provide accurate AI skincare insights</li>
+      <li>To personalize recommendations</li>
+      <li>To improve and enhance our algorithms</li>
+      <li>To communicate with you regarding appointments and updates</li>
+    </ul>
+
+    <h2 class="text-2xl font-semibold text-gray-900 mt-8 mb-3">3. Data Protection</h2>
+    <p class="text-gray-700 mb-4">
+      All sensitive information is encrypted and stored securely. We implement best-in-class security measures to prevent unauthorized access or misuse of data.
+    </p>
+
+    <h2 class="text-2xl font-semibold text-gray-900 mt-8 mb-3">4. Sharing of Information</h2>
+    <p class="text-gray-700 mb-4">
+      We do not sell or share your data with third parties unless required by law or to deliver our core services (e.g., dermatology partners for booked appointments).
+    </p>
+
+    <h2 class="text-2xl font-semibold text-gray-900 mt-8 mb-3">5. Your Rights</h2>
+    <ul class="list-disc list-inside text-gray-700 space-y-2">
+      <li>Request access to your data</li>
+      <li>Request deletion of your profile and records</li>
+      <li>Opt out of promotional communications</li>
+    </ul>
+
+    <h2 class="text-2xl font-semibold text-gray-900 mt-8 mb-3">6. Updates</h2>
+    <p class="text-gray-700 mb-4">
+      We may update this policy from time to time. Changes will be posted on this page with an updated date.
+    </p>
+
+    <p class="text-gray-600 text-sm mt-10">Last updated: June 15, 2025</p>
+  </section>
+</div>
+
+<!-- Footer -->
+<footer class="bg-white border-t border-rose-400 mt-20 py-12">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+      <div>
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">SkinTellect</h3>
+        <p class="text-gray-600 text-sm">Smart skincare insights driven by AI & backed by dermatology.</p>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">Legal</h3>
+        <ul class="space-y-2">
+          <li><a href="/privacy" class="text-gray-600 hover:text-rose-500 text-sm">Privacy Policy</a></li>
+          <li><a href="/terms" class="text-gray-600 hover:text-rose-500 text-sm">Terms of Service</a></li>
+          <li><a href="/security" class="text-gray-600 hover:text-rose-500 text-sm">Security Practices</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">Navigate</h3>
+        <ul class="space-y-2">
+          <li><a href="/about" class="text-gray-600 hover:text-rose-500 text-sm">About Us</a></li>
+          <li><a href="/blog" class="text-gray-600 hover:text-rose-500 text-sm">Blog</a></li>
+          <li><a href="/careers" class="text-gray-600 hover:text-rose-500 text-sm">Careers</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">Support</h3>
+        <ul class="space-y-2">
+          <li><a href="/faq" class="text-gray-600 hover:text-rose-500 text-sm">FAQs</a></li>
+          <li><a href="/contact" class="text-gray-600 hover:text-rose-500 text-sm">Contact</a></li>
+          <li><a href="/predict" class="text-gray-600 hover:text-rose-500 text-sm">Skin Analysis</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-12 pt-6 border-t border-rose-200 flex flex-col md:flex-row justify-between items-center">
+      <p class="text-gray-500 text-sm">© 2025 SkinTellect. All rights reserved.</p>
+      <div class="mt-4 md:mt-0 text-sm text-gray-500">
+        <a href="/privacy" class="hover:text-rose-500">Privacy</a>
+        <span class="mx-2">|</span>
+        <a href="/terms" class="hover:text-rose-500">Terms</a>
+        <span class="mx-2">|</span>
+        <a href="/security" class="hover:text-rose-500">Security</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+{% endblock %}

@@ -1,25 +1,89 @@
 {% extends "layout.html" %}
 
-{% block title %}Blog - Skintellect{% endblock %}
+{% block title %}Blog - SkinTellect{% endblock %}
 
 {% block content %}
-  <section class="max-w-4xl mx-auto py-10">
-    <h1 class="text-3xl font-semibold mb-6 text-rose-500">Our Blog</h1>
-    <p class="text-gray-700 mb-6">Read our latest thoughts on skincare, trends, and technology.</p>
+<div class="min-h-screen bg-gradient-to-br from-rose-50 via-yellow-50 to-blue-50 py-16">
+  <section class="max-w-6xl mx-auto px-6">
+    <h1 class="text-4xl font-bold text-center text-rose-500 mb-4" data-aos="fade-up">SkinTellect Blog</h1>
+    <p class="text-center text-gray-600 text-lg mb-12" data-aos="fade-up" data-aos-delay="100">
+      Explore how AI is transforming skincare through innovation, science, and stories.
+    </p>
 
-    <!-- Sample blog post list -->
-    <div class="space-y-6">
-      <article class="p-4 border-l-4 border-rose-500 bg-white rounded shadow">
-        <h2 class="text-xl font-semibold">Top 5 Skincare Routines Backed by Science</h2>
-        <p class="text-gray-600 text-sm mt-1">June 2025</p>
-        <p class="text-gray-700 mt-2">Explore evidence-based routines that actually work, backed by dermatologists and AI analytics.</p>
+    <div class="grid gap-12 md:grid-cols-2">
+      <!-- Blog Post Card 1 -->
+      <article class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" data-aos="fade-up">
+        <img src="/static/assets/blog-pic1.jpg" alt="Skincare routine" class="w-full h-60 object-cover">
+        <div class="p-6">
+          <h2 class="text-2xl font-semibold text-gray-900 mb-2">Top 5 Skincare Routines Backed by Science</h2>
+          <p class="text-sm text-gray-500 mb-3">Published: June 2025</p>
+          <p class="text-gray-700 mb-4">
+            Dive into evidence-based skincare routines proven effective by dermatologists and enhanced with AI insights.
+          </p>
+          <a href="#" class="inline-block text-rose-500 font-medium hover:underline">Read more →</a>
+        </div>
       </article>
 
-      <article class="p-4 border-l-4 border-rose-500 bg-white rounded shadow">
-        <h2 class="text-xl font-semibold">How AI is Changing Dermatology Forever</h2>
-        <p class="text-gray-600 text-sm mt-1">May 2025</p>
-        <p class="text-gray-700 mt-2">From diagnosis to product matching, discover the role of artificial intelligence in modern skincare.</p>
+      <!-- Blog Post Card 2 -->
+      <article class="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300" data-aos="fade-up" data-aos-delay="200">
+        <img src="/static/assets/blog-post2.jpg" alt="AI and Dermatology" class="w-full h-60 object-cover">
+        <div class="p-6">
+          <h2 class="text-2xl font-semibold text-gray-900 mb-2">How AI is Changing Dermatology Forever</h2>
+          <p class="text-sm text-gray-500 mb-3">Published: May 2025</p>
+          <p class="text-gray-700 mb-4">
+            From early diagnosis to tailored product matching, discover how artificial intelligence is reshaping skincare.
+          </p>
+          <a href="#" class="inline-block text-rose-500 font-medium hover:underline">Read more →</a>
+        </div>
       </article>
     </div>
   </section>
+</div>
+
+<!-- Blog Footer -->
+<footer class="bg-white border-t border-rose-200 mt-20 py-12">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+      <div>
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">SkinTellect</h3>
+        <p class="text-gray-600 text-sm">Combining AI and dermatology to bring smarter skincare to everyone.</p>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">Resources</h3>
+        <ul class="space-y-2">
+          <li><a href="/blog" class="text-gray-600 hover:text-rose-500 text-sm">Blog Home</a></li>
+          <li><a href="/about" class="text-gray-600 hover:text-rose-500 text-sm">About Us</a></li>
+          <li><a href="/faq" class="text-gray-600 hover:text-rose-500 text-sm">FAQ</a></li>
+          <li><a href="/contact" class="text-gray-600 hover:text-rose-500 text-sm">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">Explore</h3>
+        <ul class="space-y-2">
+          <li><a href="/predict" class="text-gray-600 hover:text-rose-500 text-sm">Skin Analysis</a></li>
+          <li><a href="/careers" class="text-gray-600 hover:text-rose-500 text-sm">Careers</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">Follow Us</h3>
+        <div class="flex space-x-4">
+          <a href="#" class="text-gray-400 hover:text-rose-500"><i class="fab fa-facebook fa-lg"></i></a>
+          <a href="#" class="text-gray-400 hover:text-rose-500"><i class="fab fa-twitter fa-lg"></i></a>
+          <a href="#" class="text-gray-400 hover:text-rose-500"><i class="fab fa-instagram fa-lg"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Divider line with rose-pink color -->
+    <div class="mt-12 pt-6 border-t border-rose-300 flex flex-col md:flex-row justify-between items-center">
+      <p class="text-gray-500 text-sm">© 2025 SkinTellect. All rights reserved.</p>
+      <div class="mt-4 md:mt-0 text-sm text-gray-500">
+        <a href="/privacy" class="hover:text-rose-500">Privacy Policy</a>
+        <span class="mx-2">|</span>
+        <a href="/terms" class="hover:text-rose-500">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
 {% endblock %}
