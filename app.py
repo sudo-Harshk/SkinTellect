@@ -885,7 +885,8 @@ def update_appointment(appointment_id):
     status = request.form.get('status')
     reason = request.form.get('reason', '')
     
-    conn = get_db_connection()
+    conn = sqlite3.connect(DATABASE)
+    conn.row_factory = sqlite3.Row
     cursor = conn.cursor()
     
     try:
