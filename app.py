@@ -199,6 +199,10 @@ def privacy():
 def terms():
     return render_template('terms.html')
 
+@app.route('/security')
+def security():
+    return render_template('security.html')
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':

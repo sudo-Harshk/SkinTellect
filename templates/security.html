@@ -1,0 +1,113 @@
+{% extends "layout.html" %}
+
+{% block title %}Security - SkinTellect{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-rose-50 via-yellow-50 to-blue-50 py-16 px-6">
+
+  <!-- Hero Section -->
+  <section class="max-w-5xl mx-auto text-center mb-16">
+    <div class="inline-flex items-center justify-center mb-4">
+      <div class="bg-rose-100 text-rose-600 p-4 rounded-full shadow-md">
+        <i class="fas fa-shield-alt text-2xl"></i>
+      </div>
+    </div>
+    <h1 class="text-4xl font-bold text-gray-800 gsap-fade-in">Security & Trust</h1>
+    <p class="text-gray-600 mt-4 gsap-fade-in">
+      SkinTellect follows best-in-class security practices, ensuring your data stays private, protected, and resilient.
+    </p>
+
+    <div class="mt-8 gsap-slide-up">
+      <a
+        href="{{ url_for('static', filename='docs/security-policy.pdf') }}"
+        target="_blank"
+        class="inline-flex items-center px-6 py-3 bg-rose-600 text-white font-medium rounded-lg shadow-md hover:bg-rose-700 transition duration-300"
+      >
+        <i class="fas fa-file-pdf mr-2"></i> View Full Security Policy
+      </a>
+    </div>
+  </section>
+
+  <!-- Bento Grid -->
+  <section class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 max-w-7xl mx-auto">
+    <div class="bg-white/70 backdrop-blur-lg p-6 rounded-2xl shadow-lg border-l-4 border-rose-300 gsap-slide-up">
+      <h2 class="text-lg font-semibold text-rose-600 mb-2">🔐 Data Encryption</h2>
+      <p class="text-gray-700 text-sm">AES-256 encryption at rest and TLS 1.3 for all transmissions.</p>
+    </div>
+
+    <div class="bg-white/70 backdrop-blur-lg p-6 rounded-2xl shadow-lg border-l-4 border-yellow-300 gsap-slide-up">
+      <h2 class="text-lg font-semibold text-yellow-600 mb-2">👥 Access Control</h2>
+      <p class="text-gray-700 text-sm">Strict role-based access control and MFA enforced across our stack.</p>
+    </div>
+
+    <div class="bg-white/70 backdrop-blur-lg p-6 rounded-2xl shadow-lg border-l-4 border-blue-300 gsap-slide-up">
+      <h2 class="text-lg font-semibold text-blue-600 mb-2">🛡️ Cloud Infrastructure</h2>
+      <p class="text-gray-700 text-sm">Hosted on SOC2-compliant, auto-scaling and encrypted cloud infrastructure.</p>
+    </div>
+
+    <div class="bg-white/70 backdrop-blur-lg p-6 rounded-2xl shadow-lg border-l-4 border-emerald-300 gsap-slide-up">
+      <h2 class="text-lg font-semibold text-emerald-600 mb-2">📊 Monitoring & Auditing</h2>
+      <p class="text-gray-700 text-sm">24/7 logging, intrusion detection, and security audits ensure accountability.</p>
+    </div>
+
+    <div class="bg-white/70 backdrop-blur-lg p-6 rounded-2xl shadow-lg border-l-4 border-indigo-300 gsap-slide-up">
+      <h2 class="text-lg font-semibold text-indigo-600 mb-2">⚖️ Compliance</h2>
+      <p class="text-gray-700 text-sm">We follow GDPR, HIPAA, and Indian health data compliance requirements.</p>
+    </div>
+
+    <div class="bg-white/70 backdrop-blur-lg p-6 rounded-2xl shadow-lg border-l-4 border-pink-300 gsap-slide-up">
+      <h2 class="text-lg font-semibold text-pink-600 mb-2">🤖 AI Model Security</h2>
+      <p class="text-gray-700 text-sm">All AI inferences are sandboxed, sanitized, and monitored in real-time.</p>
+    </div>
+  </section>
+
+</div>
+
+<!-- Footer -->
+<footer class="bg-white border-t border-rose-100 mt-16 py-10">
+  <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+    <p class="text-sm text-gray-500 mb-4 md:mb-0">© 2025 SkinTellect · AI for Healthy Skin</p>
+    <div class="flex flex-wrap gap-4 items-center justify-center text-sm text-gray-600">
+      <a href="/privacy" class="hover:text-rose-500">Privacy Policy</a>
+      <a href="/security" class="hover:text-rose-500">Security</a>
+      <a href="/contact" class="hover:text-rose-500">Contact</a>
+      <div class="flex space-x-3 ml-4">
+        <a href="#"><i class="fab fa-facebook text-gray-400 hover:text-rose-500"></i></a>
+        <a href="#"><i class="fab fa-instagram text-gray-400 hover:text-rose-500"></i></a>
+        <a href="#"><i class="fab fa-twitter text-gray-400 hover:text-rose-500"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- GSAP Animations -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.utils.toArray('.gsap-fade-in').forEach(el => {
+    gsap.from(el, {
+      opacity: 0,
+      y: 20,
+      duration: 0.8,
+      scrollTrigger: {
+        trigger: el,
+        start: "top 85%"
+      }
+    });
+  });
+
+  gsap.utils.toArray('.gsap-slide-up').forEach(el => {
+    gsap.from(el, {
+      opacity: 0,
+      y: 50,
+      duration: 1,
+      scrollTrigger: {
+        trigger: el,
+        start: "top 90%"
+      }
+    });
+  });
+</script>
+{% endblock %}
