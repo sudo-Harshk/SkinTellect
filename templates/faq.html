@@ -1,0 +1,86 @@
+{% extends "layout.html" %}
+
+{% block title %}FAQ - SkinTellect{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gradient-to-br from-yellow-50 via-pink-50 to-blue-50 py-16 px-6">
+  <section class="max-w-4xl mx-auto">
+    <h1 class="text-4xl font-bold text-center text-rose-600 mb-4 gsap-fade-in">Frequently Asked Questions</h1>
+    <p class="text-center text-gray-700 mb-10 gsap-fade-in">Answers to the most common questions about SkinTellect.</p>
+
+    <!-- Accordion -->
+    <div class="space-y-4">
+      {% for q in [
+        {"question": "What is SkinTellect?", "answer": "SkinTellect is an AI-powered platform that analyzes your skin and recommends personalized skincare routines."},
+        {"question": "Is my data secure?", "answer": "Absolutely. We use end-to-end encryption and comply with GDPR and HIPAA standards."},
+        {"question": "How do I upload a skin image?", "answer": "Simply go to the 'Skin Analysis' page, take or upload a clear photo of your face, and let our AI handle the rest."},
+        {"question": "Can I talk to a dermatologist?", "answer": "Yes, you can book appointments with certified dermatologists directly through the platform."},
+        {"question": "Is this a replacement for medical advice?", "answer": "No. SkinTellect is a supportive tool, not a substitute for professional medical consultation."}
+      ] %}
+      <div class="bg-white/70 backdrop-blur-md border-l-4 border-rose-400 rounded-xl shadow-md">
+        <button
+          class="w-full text-left px-6 py-4 font-semibold text-gray-800 focus:outline-none flex justify-between items-center accordion-toggle"
+        >
+          {{ q.question }}
+          <svg class="w-5 h-5 transform transition-transform duration-200" fill="none" stroke="currentColor"
+            viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        <div class="accordion-content px-6 pb-4 text-gray-600 hidden">
+          <p>{{ q.answer }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+</div>
+
+<!-- Footer -->
+<footer class="bg-white border-t border-rose-100 mt-16 py-10">
+  <div class="max-w-6xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center text-center md:text-left">
+    <p class="text-sm text-gray-500 mb-4 md:mb-0">© 2025 SkinTellect · AI for Healthy Skin</p>
+    <div class="flex flex-wrap gap-4 items-center justify-center text-sm text-gray-600">
+      <a href="/privacy" class="hover:text-rose-500">Privacy Policy</a>
+      <a href="/security" class="hover:text-rose-500">Security</a>
+      <a href="/contact" class="hover:text-rose-500">Contact</a>
+      <div class="flex space-x-3 ml-4">
+        <a href="#"><i class="fab fa-facebook text-gray-400 hover:text-rose-500"></i></a>
+        <a href="#"><i class="fab fa-instagram text-gray-400 hover:text-rose-500"></i></a>
+        <a href="#"><i class="fab fa-twitter text-gray-400 hover:text-rose-500"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+  gsap.registerPlugin(ScrollTrigger);
+
+  gsap.utils.toArray('.gsap-fade-in').forEach(el => {
+    gsap.from(el, {
+      opacity: 0,
+      y: 20,
+      duration: 0.8,
+      scrollTrigger: {
+        trigger: el,
+        start: "top 85%"
+      }
+    });
+  });
+
+  // Accordion toggle
+  document.querySelectorAll(".accordion-toggle").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const content = btn.nextElementSibling;
+      const icon = btn.querySelector("svg");
+
+      content.classList.toggle("hidden");
+      icon.classList.toggle("rotate-180");
+    });
+  });
+</script>
+{% endblock %}
