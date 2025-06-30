@@ -4,23 +4,23 @@
 
 {% block content %}
 <div class="register-page justify-center">
-    <form action="/register" class="register-container" method="post">
-        <h2>Sign Up</h2>
-        <p>Already have an account? <a href="{{ url_for('login') }}">Login Here.</a></p>
+    <form action="/register" class="register-container gsap-fade-in" method="post">
+        <h2 class="gsap-slide-up">Sign Up</h2>
+        <p class="gsap-fade-in">Already have an account? <a href="{{ url_for('login') }}">Login Here.</a></p>
 
         <!-- Error message for registration failure -->
         {% if error %}
-            <p class="text-red-600 text-sm mb-4">{{ error }}</p>
+            <p class="text-red-600 text-sm mb-4 gsap-fade-in">{{ error }}</p>
         {% endif %}
 
         <!-- Username suggestions -->
         {% if username_suggestions %}
-        <div class="username-suggestions mb-4">
+        <div class="username-suggestions mb-4 gsap-fade-in">
             <p class="text-sm text-gray-600 mb-2">Try these available usernames:</p>
             <div class="suggestions-grid">
                 {% for suggestion in username_suggestions %}
                 <button type="button" 
-                        class="suggestion-btn" 
+                        class="suggestion-btn gsap-slide-up" 
                         onclick="useSuggestion('{{ suggestion }}')"
                         title="Click to use this username">
                     {{ suggestion }}
@@ -30,13 +30,13 @@
         </div>
         {% endif %}
 
-        <div class="saperator-box">
+        <div class="saperator-box gsap-fade-in">
             <div></div>
             <span>OR</span>
             <div></div>
         </div>
 
-        <div class="form-component">
+        <div class="form-component gsap-slide-up">
             <input type="text" 
                    name="username" 
                    id="username"
@@ -44,28 +44,28 @@
                    value="{{ form_data.username if form_data else '' }}"
                    required>
         </div>
-        <div class="form-component">
+        <div class="form-component gsap-slide-up">
             <input type="number" 
                    name="age" 
                    placeholder="Enter Your Age" 
                    value="{{ form_data.age if form_data else '' }}"
                    required>
         </div>
-        <div class="form-component">
+        <div class="form-component gsap-slide-up">
             <input type="email" 
                    name="email" 
                    placeholder="Enter Your Email" 
                    value="{{ form_data.email if form_data else '' }}"
                    required>
         </div>
-        <div class="form-component">
+        <div class="form-component gsap-slide-up">
             <input type="password" 
                    name="password" 
                    placeholder="Enter Your Password" 
                    required>
         </div>
 
-        <button type="submit" class="btn btn-primary block mx-auto">
+        <button type="submit" class="btn btn-primary block mx-auto gsap-fade-in">
             Sign Up
         </button>
     </form>
@@ -121,6 +121,30 @@
             btn.style.background = 'white';
         }, 200);
     }
+
+    // GSAP animations for register page
+    document.addEventListener('DOMContentLoaded', function () {
+      if (window.gsap) {
+        gsap.utils.toArray('.gsap-fade-in').forEach((el, i) => {
+          gsap.from(el, {
+            opacity: 0,
+            y: 30,
+            duration: 0.8,
+            delay: i * 0.1,
+            ease: 'power2.out'
+          });
+        });
+        gsap.utils.toArray('.gsap-slide-up').forEach((el, i) => {
+          gsap.from(el, {
+            opacity: 0,
+            y: 50,
+            duration: 1,
+            delay: i * 0.05,
+            ease: 'power2.out'
+          });
+        });
+      }
+    });
 </script>
 
 {% endblock %}
