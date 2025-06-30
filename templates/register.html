@@ -3,7 +3,7 @@
 {% block title %}Register - SkinTellect{% endblock %}
 
 {% block content %}
-<div class="register-page">
+<div class="register-page justify-center">
     <form action="/register" class="register-container" method="post">
         <h2>Sign Up</h2>
         <p>Already have an account? <a href="{{ url_for('login') }}">Login Here.</a></p>
@@ -65,13 +65,10 @@
                    required>
         </div>
 
-        <button type="submit" class="btn btn-primary">Sign Up</button>
+        <button type="submit" class="btn btn-primary block mx-auto">
+            Sign Up
+        </button>
     </form>
-
-    <div class="right-content">
-        <h3>Welcome To</h3>
-        <h1>Skintellect!</h1>
-    </div>
 </div>
 
 <style>
@@ -125,4 +122,5 @@
         }, 200);
     }
 </script>
+
 {% endblock %}

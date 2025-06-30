@@ -220,6 +220,9 @@ def login():
             # Try to fetch latest age from appointment table
             with sqlite3.connect(DATABASE) as conn:
                 cursor = conn.cursor()
+                cursor.execute
+                
+                
                 cursor.execute("SELECT age FROM appointment WHERE username = ? ORDER BY id DESC LIMIT 1", (user[1],))
                 row = cursor.fetchone()
                 if row and row[0]:
