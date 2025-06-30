@@ -5,7 +5,7 @@
 {% block content %}
 <section class="relative py-16">
   <!-- Gradient Background -->
-  <div class="absolute inset-0 z-0 bg-gradient-to-br from-rose-100 via-yellow-50 to-blue-100 opacity-60"></div>
+  <div class="absolute inset-0 z-0 bg-gradient-to-br from-rose-100 via-yellow-50 to-rose-100 opacity-60"></div>
 
   <!-- Main Content -->
   <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -31,7 +31,7 @@
       <!-- Job 2 -->
       <div class="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition duration-300" data-aos="fade-up" data-aos-delay="100">
         <h3 class="text-xl font-semibold text-gray-800 mb-2">Content Writer (Beauty & Wellness)</h3>
-        <p class="text-gray-600 text-sm mb-4">We’re looking for a writer passionate about skincare and wellness to craft engaging blog content.</p>
+        <p class="text-gray-600 text-sm mb-4">We're looking for a writer passionate about skincare and wellness to craft engaging blog content.</p>
         <ul class="text-sm text-gray-600 list-disc list-inside mb-4">
           <li>Excellent written English</li>
           <li>Knowledge of SEO best practices</li>
@@ -55,54 +55,10 @@
 
     <!-- CTA -->
     <div class="mt-16 text-center" data-aos="zoom-in">
-      <p class="text-gray-700 mb-4">Don't see a position that fits? Send us your resume anyway. We’d love to hear from you!</p>
+      <p class="text-gray-700 mb-4">Don't see a position that fits? Send us your resume anyway. We'd love to hear from you!</p>
       <a href="mailto:careers@skintellect.com" class="inline-block bg-rose-500 text-white px-5 py-3 rounded-xl hover:bg-rose-600 transition">Send Resume</a>
     </div>
   </div>
 </section>
-<footer class="bg-white border-t border-gray-200 mt-16 pt-10 pb-6" data-aos="fade-up">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
-      <!-- Company Info -->
-      <div>
-        <h2 class="text-2xl font-bold text-rose-500">SkinTellect</h2>
-        <p class="text-gray-600 mt-2 max-w-sm text-sm">
-          Empowering skin health through intelligent technology and a passionate team. Join us in shaping the future of skincare.
-        </p>
-      </div>
-
-      <!-- Links -->
-      <div class="grid grid-cols-2 gap-6 text-sm text-gray-600">
-        <div>
-          <h3 class="text-gray-900 font-medium mb-2">Explore</h3>
-          <ul class="space-y-2">
-            <li><a href="/about" class="hover:text-rose-500">About Us</a></li>
-            <li><a href="/careers" class="hover:text-rose-500">Careers</a></li>
-            <li><a href="/blog" class="hover:text-rose-500">Blog</a></li>
-          </ul>
-        </div>
-        <div>
-          <h3 class="text-gray-900 font-medium mb-2">Support</h3>
-          <ul class="space-y-2">
-            <li><a href="/contact" class="hover:text-rose-500">Contact Us</a></li>
-            <li><a href="mailto:careers@skintellect.com" class="hover:text-rose-500">Email HR</a></li>
-            <li><a href="#" class="hover:text-rose-500">FAQs</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Socials -->
-      <div class="flex space-x-4 text-gray-500">
-        <a href="#" class="hover:text-rose-500 text-xl"><i class="fab fa-linkedin"></i></a>
-        <a href="#" class="hover:text-rose-500 text-xl"><i class="fab fa-twitter"></i></a>
-        <a href="#" class="hover:text-rose-500 text-xl"><i class="fab fa-instagram"></i></a>
-      </div>
-    </div>
-
-    <div class="border-t mt-10 pt-6 text-center text-xs text-gray-400">
-      © {{ now().year }} SkinTellect. All rights reserved.
-    </div>
-  </div>
-</footer>
 
 {% endblock %}
