@@ -25,6 +25,7 @@ import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from datetime import datetime
+import traceback 
 
 # Load environment variables
 load_dotenv()
@@ -971,6 +972,50 @@ def update_appointment(appointment_id):
     return redirect(url_for('admin_appointments'))
 
 def send_email(to_email, subject, template_name, **kwargs):
+    try:
+        msg = Message(
+            subject=subject,
+            recipients=[to_email],
+            sender=app.config['MAIL_DEFAULT_SENDER']
+        )
+        
+        # Render email template
+        try:
+            msg.html = render_template(template_name, **kwargs)
+        except Exception as render_error:
+            print(f"❌ Error rendering template '{template_name}': {render_error}")
+            traceback.print_exc()
+            return False
+
+        # Add plain text version
+        msg.body = f"""
+        Dear {kwargs.get('name', 'User')},
+
+        Your appointment request has been {kwargs.get('status', 'PENDING').lower()}.
+
+        Appointment Details:
+        Date: {kwargs.get('date', 'N/A')}
+        Service: {kwargs.get('service', 'N/A')}
+        Status: {kwargs.get('status', 'PENDING')}
+        {f'Reason: {kwargs.get("reason")}' if kwargs.get('reason') else ''}
+
+        {f'We look forward to seeing you at your appointment. Please arrive 10 minutes before your scheduled time.' if kwargs.get('status') == 'ACCEPTED' else 'We will review your appointment request and send you a confirmation email shortly.' if kwargs.get('status') == 'PENDING' else 'We apologize for any inconvenience. Please feel free to book another appointment at a more convenient time.'}
+
+        If you have any questions, please don't hesitate to contact us.
+
+        Best regards,
+        SkinTellect Team
+        """
+
+        # Send email
+        mail.send(msg)
+        print(f"✅ Email sent successfully to {to_email}")
+        return True
+
+    except Exception as e:
+        print(f"❌ Error sending email to {to_email}: {e}")
+        traceback.print_exc()
+        return False
     try:
         msg = Message(
             subject=subject,
