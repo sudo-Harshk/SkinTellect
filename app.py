@@ -1,5 +1,6 @@
 import os
 from dotenv import load_dotenv
+from pathlib import Path
 import sqlite3
 from flask import Flask, jsonify, render_template, request, redirect, session, url_for, flash
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -42,19 +43,29 @@ TWILIO_PHONE_NUMBER = os.environ.get('TWILIO_PHONE_NUMBER')
 twilio_client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
 
 # Email config
-app.config['MAIL_SERVER'] = os.environ.get('MAIL_SERVER', 'smtp.gmail.com')
+app.config['MAIL_SERVER'] = os.environ.get('MAIL_SERVER', 'smtp.zoho.in')
 app.config['MAIL_PORT'] = int(os.environ.get('MAIL_PORT', 587))
 app.config['MAIL_USE_TLS'] = os.environ.get('MAIL_USE_TLS', 'True').lower() == 'true'
-app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
-app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
-app.config['MAIL_DEFAULT_SENDER'] = (
-    os.environ.get('MAIL_DEFAULT_SENDER_NAME', 'SkinTellect'),
-    os.environ.get('MAIL_DEFAULT_SENDER_EMAIL', os.environ.get('MAIL_USERNAME'))
-)
-app.config['MAIL_MAX_EMAILS'] = int(os.environ.get('MAIL_MAX_EMAILS', 5))
-app.config['MAIL_ASCII_ATTACHMENTS'] = os.environ.get('MAIL_ASCII_ATTACHMENTS', 'False').lower() == 'true'
 app.config['MAIL_USE_SSL'] = os.environ.get('MAIL_USE_SSL', 'False').lower() == 'true'
 
+app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
+app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
+
+# Default sender name and email
+app.config['MAIL_DEFAULT_SENDER'] = (
+    os.environ.get('MAIL_DEFAULT_SENDER_NAME', 'SkinTellect'),
+    os.environ.get('MAIL_DEFAULT_SENDER_EMAIL', app.config['MAIL_USERNAME'])
+)
+
+app.config['MAIL_MAX_EMAILS'] = int(os.environ.get('MAIL_MAX_EMAILS', 5))
+app.config['MAIL_ASCII_ATTACHMENTS'] = os.environ.get('MAIL_ASCII_ATTACHMENTS', 'False').lower() == 'true'
+
+# 🔒 Sanity check for required fields
+required_vars = ['MAIL_USERNAME', 'MAIL_PASSWORD']
+missing_vars = [var for var in required_vars if not os.environ.get(var)]
+
+if missing_vars:
+    raise ValueError(f"❌ Missing required environment variables: {', '.join(missing_vars)}")
 # Initialize mail
 mail = Mail(app)
 
@@ -309,7 +320,7 @@ def predict():
 def send_welcome_email(email, username):
     # Create message
     msg = MIMEMultipart()
-    msg['From'] = f"SkinTellect <{app.config['MAIL_USERNAME']}>"
+    msg['From'] = f"{app.config['MAIL_DEFAULT_SENDER'][0]} <{app.config['MAIL_DEFAULT_SENDER'][1]}>"
     msg['To'] = email
     msg['Subject'] = "Welcome to SkinTellect! 🎉"
     
