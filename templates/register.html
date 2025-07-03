@@ -21,7 +21,7 @@
                 {% for suggestion in username_suggestions %}
                 <button type="button" 
                         class="suggestion-btn gsap-slide-up" 
-                        onclick="useSuggestion('{{ suggestion }}')"
+                        onclick="useSuggestion('{{ suggestion }}', event)"
                         title="Click to use this username">
                     {{ suggestion }}
                 </button>
@@ -123,7 +123,7 @@
 </style>
 
 <script>
-    function useSuggestion(username) {
+    function useSuggestion(username, event) {
         document.getElementById('username').value = username;
         // Optional: Add a visual feedback
         const btn = event.target;

@@ -1,4 +1,11 @@
 {
+  "name": "skin-care-complete",
+  "version": "1.0.0",
+  "description": "A web application for skin care appointment management and recommendations.",
+  "license": "MIT",
+  "scripts": {
+    "start": "echo 'No start script defined'"
+  },
   "dependencies": {
     "countup.js": "^2.9.0"
   }

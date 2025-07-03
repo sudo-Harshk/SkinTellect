@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  {% if csrf_token %}<meta name="csrf-token" content="{{ csrf_token }}">{% endif %}
   <title>{% block title %}Skintellect{% endblock %}</title>
 
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
@@ -231,7 +232,7 @@
 <body>
   <nav>
     <a href="/" class="nav-logo">SkinTellect</a>
-    <button class="mobile-menu-btn" onclick="toggleMenu()">
+    <button class="mobile-menu-btn" onclick="toggleMenu()" aria-label="Toggle menu" aria-expanded="false">
       <i class="fas fa-bars"></i>
     </button>
     <ul class="nav-links">
@@ -335,7 +336,9 @@
   <script>
     function toggleMenu() {
       const navLinks = document.querySelector('.nav-links');
-      navLinks.classList.toggle('active');
+      const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+      const isActive = navLinks.classList.toggle('active');
+      mobileMenuBtn.setAttribute('aria-expanded', isActive ? 'true' : 'false');
     }
 
     // Close mobile menu when clicking outside
@@ -362,23 +365,6 @@
       });
     });
 
-    document.querySelectorAll('.nav-link').forEach(link => {
-      const underline = link.querySelector('.nav-underline');
-      link.addEventListener('mouseenter', () => {
-        gsap.to(underline, { width: '100%', duration: 0.3, ease: 'power2.out' });
-      });
-      link.addEventListener('mouseleave', () => {
-        if (!link.classList.contains('active')) {
-          gsap.to(underline, { width: 0, duration: 0.3, ease: 'power2.in' });
-        }
-      });
-      // On page load, set underline for active link
-      if (link.classList.contains('active')) {
-        gsap.set(underline, { width: '100%' });
-      } else {
-        gsap.set(underline, { width: 0 });
-      }
-    });
      window.addEventListener('DOMContentLoaded', () => {
     gsap.utils.toArray('[data-animate="fade-up"]').forEach((el, i) => {
       gsap.from(el, {
