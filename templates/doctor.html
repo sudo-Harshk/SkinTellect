@@ -107,15 +107,23 @@
 </div>
 
 <script>
+// Helper to get CSRF token from meta tag
+function getCsrfToken() {
+  const meta = document.querySelector('meta[name="csrf-token"]');
+  return meta ? meta.getAttribute('content') : '';
+}
+
 // Enhanced Accept Appointment Function
 function acceptAppointment(appointmentId) {
   if (confirm('Are you sure you want to accept this appointment?')) {
     showLoader();
+    const headers = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'X-CSRF-Token': getCsrfToken()
+    };
     fetch('/update_status', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
+      headers: headers,
       body: `appointment_id=${appointmentId}`
     })
     .then(response => {
@@ -143,11 +151,13 @@ function acceptAppointment(appointmentId) {
 function rejectAppointment(appointmentId) {
   if (confirm('Are you sure you want to reject this appointment?')) {
     showLoader();
+    const headers = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'X-CSRF-Token': getCsrfToken()
+    };
     fetch('/reject_appointment', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
+      headers: headers,
       body: `appointment_id=${appointmentId}`
     })
     .then(response => {
@@ -175,11 +185,13 @@ function rejectAppointment(appointmentId) {
 function deleteAllAppointments() {
   if (confirm('This will permanently delete ALL appointments. Continue?')) {
     showLoader();
+    const headers = {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      'X-CSRF-Token': getCsrfToken()
+    };
     fetch('/delete_all_appointments', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
+      headers: headers,
     })
     .then(response => {
       if (!response.ok) throw new Error('Network response was not ok');

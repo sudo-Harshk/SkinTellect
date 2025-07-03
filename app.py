@@ -27,6 +27,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from datetime import datetime
 import traceback 
+import secrets
 
 # Load environment variables
 load_dotenv()
@@ -128,7 +129,7 @@ def recommend_products_based_on_classes(classes):
     recommendations = []
     used_products = set()
 
-    json_path = r"D:\skin-care-complete\dataset\skincare_products.json"
+    json_path = os.path.join(os.path.dirname(__file__), 'dataset', 'skincare_products.json')
     try:
         with open(json_path, 'r', encoding='utf-8') as f:
             product_data = json.load(f)
@@ -325,27 +326,7 @@ def send_welcome_email(email, username):
     msg['Subject'] = "Welcome to SkinTellect! 🎉"
     
     # Email body
-    body = f"""
-    <html>
-        <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-            <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
-                <h2 style="color: #ec4899;">Welcome to SkinTellect! 🎉</h2>
-                <p>Dear {username},</p>
-                <p>Thank you for joining SkinTellect! Your account has been successfully created.</p>
-                <p>We're excited to help you on your skin care journey. With SkinTellect, you can:</p>
-                <ul>
-                    <li>Get personalized skin analysis</li>
-                    <li>Book appointments with skin care experts</li>
-                    <li>Track your skin health progress</li>
-                    <li>Receive customized skin care recommendations</li>
-                </ul>
-                <p>If you have any questions, feel free to reach out to our support team.</p>
-                <p>Best regards,<br>The SkinTellect Team</p>
-            </div>
-        </body>
-    </html>
-    """
-    
+    body = render_template('welcome_email.html', username=username)
     msg.attach(MIMEText(body, 'html'))
     
     try:
@@ -887,7 +868,10 @@ def doctor():
         c = conn.cursor()
         c.execute("SELECT * FROM appointment")
         appointments = [dict(row) for row in c.fetchall()]
-    return render_template('doctor.html', appointments=appointments)
+    # Generate CSRF token and store in session
+    csrf_token = secrets.token_hex(32)
+    session['csrf_token'] = csrf_token
+    return render_template('doctor.html', appointments=appointments, csrf_token=csrf_token)
 
 @app.route('/delete_all_appointments', methods=['POST'])
 def delete_all_appointments():
