@@ -81,6 +81,18 @@ CLIENT = InferenceHTTPClient(
     api_key=os.environ.get('ROBOFLOW_INFERENCE_API_KEY')
 )
 
+# HuggingFace API configuration (fallback for skin type detection)
+HUGGINGFACE_API_URL = "https://router.huggingface.co/hf-inference/models/dima806/skin_types_image_detection"
+HUGGINGFACE_API_KEY = os.environ.get('HUGGINGFACE_API_KEY')
+
+# Label mapping for HuggingFace model output
+HUGGINGFACE_LABEL_MAP = {
+    "oily": ["oily skin"],
+    "dry": ["dryness"],
+    "normal": ["normal/dry skin"],
+    "combination": ["oily skin", "dryness"]
+}
+
 # Store unique classes
 unique_classes = set()
 
@@ -177,6 +189,66 @@ def recommend_products_based_on_classes(classes):
             recommendations.append((skin_condition, fallback_product))
     return recommendations
 
+def predict_with_huggingface(image_path):
+    """
+    Fallback skin analysis using HuggingFace API.
+    Returns: (skin_result dict, skin_labels list, has_bbox bool)
+    """
+    import requests
+    
+    try:
+        # Determine content type
+        if image_path.endswith('.png'):
+            content_type = 'image/png'
+        else:
+            content_type = 'image/jpeg'
+        
+        headers = {
+            "Authorization": f"Bearer {HUGGINGFACE_API_KEY}",
+            "Content-Type": content_type
+        }
+        
+        with open(image_path, "rb") as f:
+            image_data = f.read()
+        
+        response = requests.post(
+            HUGGINGFACE_API_URL,
+            headers=headers,
+            data=image_data,
+            timeout=15
+        )
+        
+        if response.status_code != 200:
+            print(f"HuggingFace API error: {response.status_code}")
+            return {"predictions": []}, [], False
+        
+        results = response.json()
+        
+        if results and len(results) > 0:
+            # Get top prediction
+            top_result = max(results, key=lambda x: x.get("score", 0))
+            label = top_result.get("label", "").lower()
+            confidence = top_result.get("score", 0)
+            
+            print(f"HuggingFace detected: {label} ({confidence*100:.1f}%)")
+            
+            # Map to our labels
+            mapped_classes = HUGGINGFACE_LABEL_MAP.get(label, ["normal/dry skin"])
+            
+            # Build response
+            predictions = [{
+                "class": cls,
+                "confidence": confidence
+            } for cls in mapped_classes]
+            
+            return {"predictions": predictions}, mapped_classes, False
+        
+        return {"predictions": []}, [], False
+        
+    except Exception as e:
+        print(f"HuggingFace fallback failed: {e}")
+        return {"predictions": []}, [], False
+
 @app.context_processor
 def inject_now():
     return {'now': datetime.utcnow}
@@ -256,6 +328,10 @@ def predict():
         return redirect('/')
     if request.method == 'POST':
         unique_classes = set()
+        has_bbox = False  # Track if we have bounding box data
+        
+        # Check for force_fallback parameter (for demo testing)
+        force_fallback = request.args.get('force_fallback', 'false') == 'true'
 
         image_file = request.files.get('image')
         if not image_file or image_file.filename == '':
@@ -268,41 +344,77 @@ def predict():
         image_path = os.path.join('static', image_filename)
         image_file.save(image_path)
 
-        # Skin prediction
-        skin_result = model_skin.predict(image_path, confidence=15, overlap=30).json()
-        skin_labels = [item["class"] for item in skin_result.get("predictions", [])]
+        # Skin prediction with fallback
+        skin_result = {"predictions": []}
+        skin_labels = []
+        
+        # === ROBOFLOW: Detect specific conditions (acne, whitehead, blackhead, etc.) ===
+        if not force_fallback:
+            try:
+                print("Attempting Roboflow skin detection...")
+                skin_result = model_skin.predict(image_path, confidence=15, overlap=30).json()
+                skin_labels = [item["class"] for item in skin_result.get("predictions", [])]
+                has_bbox = True
+                print(f"Roboflow detected: {skin_labels}")
+            except Exception as e:
+                print(f"Roboflow skin detection failed: {e}")
+        
         unique_classes.update(skin_labels)
 
-        # Oiliness detection
-        custom_configuration = InferenceConfiguration(confidence_threshold=0.3)
-        with CLIENT.use_configuration(custom_configuration):
-            oilyness_result = CLIENT.infer(image_path, model_id="oilyness-detection-kgsxz/1")
+        # === HUGGINGFACE: Detect skin TYPE (oily, dry, normal, combination) ===
+        # Always run HuggingFace to get skin type for better recommendations
+        try:
+            print("Running HuggingFace for skin type detection...")
+            hf_result, hf_labels, _ = predict_with_huggingface(image_path)
+            if hf_labels:
+                print(f"HuggingFace detected skin type: {hf_labels}")
+                unique_classes.update(hf_labels)
+        except Exception as e:
+            print(f"HuggingFace skin type detection failed: {e}")
 
-        if not oilyness_result['predictions']:
-            unique_classes.add("dryness")
-        else:
-            oilyness_classes = [class_mapping.get(pred['class'], pred['class']) for pred in oilyness_result['predictions'] if pred['confidence'] >= 0.3]
-            unique_classes.update(oilyness_classes)
+        # === ROBOFLOW OILINESS: Additional oiliness detection ===
+        if not force_fallback:
+            try:
+                custom_configuration = InferenceConfiguration(confidence_threshold=0.3)
+                with CLIENT.use_configuration(custom_configuration):
+                    oilyness_result = CLIENT.infer(image_path, model_id="oilyness-detection-kgsxz/1")
+
+                if oilyness_result['predictions']:
+                    oilyness_classes = [class_mapping.get(pred['class'], pred['class']) for pred in oilyness_result['predictions'] if pred['confidence'] >= 0.3]
+                    unique_classes.update(oilyness_classes)
+                    print(f"Roboflow oiliness detected: {oilyness_classes}")
+            except Exception as e:
+                print(f"Oiliness detection failed: {e}")
+
+        # If still no classes detected, add default
+        if not unique_classes:
+            unique_classes.add("normal/dry skin")
+            flash("⚠️ Could not fully analyze image. Showing general recommendations.", "warning")
 
         image = cv2.imread(image_path)
-        if skin_result.get("predictions"):
-            detections = sv.Detections(
-                xyxy=np.array([
-                    [
-                        pred["x"] - pred["width"] / 2,
-                        pred["y"] - pred["height"] / 2,
-                        pred["x"] + pred["width"] / 2,
-                        pred["y"] + pred["height"] / 2
-                    ] for pred in skin_result["predictions"]
-                ]),
-                class_id=np.array([0] * len(skin_result["predictions"])),
-                confidence=np.array([pred["confidence"] for pred in skin_result["predictions"]]),
-                data={"class_name": [pred["class"] for pred in skin_result["predictions"]]}
-            )
-            label_annotator = sv.LabelAnnotator()
-            bounding_box_annotator = sv.BoxAnnotator()
-            annotated_image = bounding_box_annotator.annotate(scene=image, detections=detections)
-            annotated_image = label_annotator.annotate(scene=annotated_image, detections=detections)
+        # Only draw bounding boxes if we have Roboflow results with bbox data
+        if skin_result.get("predictions") and has_bbox:
+            try:
+                detections = sv.Detections(
+                    xyxy=np.array([
+                        [
+                            pred["x"] - pred["width"] / 2,
+                            pred["y"] - pred["height"] / 2,
+                            pred["x"] + pred["width"] / 2,
+                            pred["y"] + pred["height"] / 2
+                        ] for pred in skin_result["predictions"]
+                    ]),
+                    class_id=np.array([0] * len(skin_result["predictions"])),
+                    confidence=np.array([pred["confidence"] for pred in skin_result["predictions"]]),
+                    data={"class_name": [pred["class"] for pred in skin_result["predictions"]]}
+                )
+                label_annotator = sv.LabelAnnotator()
+                bounding_box_annotator = sv.BoxAnnotator()
+                annotated_image = bounding_box_annotator.annotate(scene=image, detections=detections)
+                annotated_image = label_annotator.annotate(scene=annotated_image, detections=detections)
+            except Exception as e:
+                print(f"Bounding box annotation failed: {e}")
+                annotated_image = image.copy()
         else:
             annotated_image = image.copy()
 
